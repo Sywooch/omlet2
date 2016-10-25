@@ -1,0 +1,140 @@
+#description{
+    resize: none;
+}
+.scratch-btn, .publish-btn{
+    width: 150px;
+    margin: 3px;
+}
+.step{
+    margin-bottom:10px;
+}
+.step-description{
+    resize: none;
+    width:100%;
+}
+.step-img-holder{
+    position: absolute;
+    margin-left: -14px;
+}
+.ing-btn-remove{
+    display: block;
+    margin-top:8px;
+    margin-left: -10px;
+    float:left;
+}
+.step-remove{
+    width:16px;
+    margin-top: 35px;
+    margin-left:-20px;
+    z-index: 100;
+    position: absolute;
+}
+
+.glyphicon-remove{
+    color:red;
+    display:inline;
+    vertical-align: middle;
+}
+.main-img-holder img{
+    height:200px;
+    width:250px;
+}
+.ingridients-group input{
+    margin-bottom: 10px;
+}
+
+h2{
+    text-align: center;
+}
+/*original*/
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
