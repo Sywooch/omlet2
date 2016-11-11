@@ -39,7 +39,10 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><img id="logo" src="/web/img/logo.png"></a>
+                <a class="navbar-brand" href="/">
+                    <img id="logo" src="/web/img/logo.png">
+                    <img id="logo-name" src="/web/img/logo-name.png" style="display:none">
+                </a>
                 <form class="navbar-form navbar-right" action="<?=Url::to(['search'])?>" method="get">
                     <input type="text" class="form-control" placeholder="Пошук..." name="s" maxlength="40">
                 </form>
@@ -67,6 +70,7 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        <br id="br" style="display:none">
         <?= $content ?>
     </div>
 </div>
@@ -77,7 +81,24 @@ AppAsset::register($this);
     </div>
 </footer>
 <!-- AUTH DIALOG -->
+<script>
+    themeAdaptation();
+    $(window).resize(function(){
+        themeAdaptation();
+    });
 
+    function themeAdaptation(){
+        if (window.innerWidth < 768) {
+            $('#br').css('display', 'block');
+            $('#logo-name').css('display', 'inline-block');
+            if (!$('#logo').hasClass('logo-adapted')) $('#logo').addClass('logo-adapted');
+        } else {
+            $('#br').css('display', 'none');
+            $('#logo-name').css('display', 'none');
+            if ($('#logo').hasClass('logo-adapted')) $('#logo').removeClass('logo-adapted');
+        }
+    }
+</script>
 <?php $this->endBody() ?>
 </body>
 </html>

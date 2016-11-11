@@ -1,11 +1,11 @@
 <?php
 
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+if (IS_LOCAL) {
     return [
         'class' => 'yii\db\Connection',
         'dsn' => 'mysql:host=localhost;dbname=omlet2',
-        'username' => 'admin',
-        'password' => 'admin',
+        'username' => 'root',
+        'password' => '',
         'charset' => 'utf8',
     ];
 }

@@ -1,3 +1,59 @@
+.logo-adapted{
+    margin-top: -22px;
+    transform: rotate(-30deg);
+    height: 70px;
+}
+.hor-line{
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+@media (max-width:767px){
+    .mob-margin {
+        margin-top: 5px;
+    }
+    .step-btn-remove{
+        margin: 260px 0 0 244px!important;
+    }
+}
+.step-btn-remove{
+    position: absolute;
+    margin: 120px 0 0 -73px;
+    display: block;
+}
+.ing-btn-remove:hover,.step-btn-remove:hover{cursor:pointer}
+#logo, #logo-name{
+    display: inline-block;
+}
+.photo-mobile{
+    width: 100%;
+    height: 100%;
+}
+#logo-name{
+    display: inline-block;
+    height: 44px;
+    margin: -25px 0 0 15px;
+}
+#showSave{
+    position: fixed;
+    left: 48%;
+    top: 30%;
+    color: limegreen;
+    border: 4px solid limegreen;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.5);
+}
+#showSave > span{
+    font-size: 50px;
+}
+.photo-edit{
+    width: 190px;
+    margin: 15px 0 15px 0;
+
+}
+.photo-preview{
+    margin-bottom: 15px;
+}
 #description{
     resize: none;
 }

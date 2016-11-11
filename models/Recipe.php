@@ -7,18 +7,18 @@ use Yii;
 /**
  * This is the model class for table "recipe".
  *
- * @property string $id
- * @property string $parent_section
- * @property string $section
+ * @property integer $id
+ * @property integer $section
  * @property string $name
  * @property string $alias
  * @property string $description
  * @property string $add_date
+ * @property string $edit_date
  * @property integer $status
- * @property string $author
- * @property string $likes
- * @property string $views
- * @property string $reputation
+ * @property integer $author
+ * @property integer $likes
+ * @property integer $views
+ * @property integer $reputation
  * @property string $last_view_date
  *
  * @property Ingridient[] $ingridients
@@ -30,9 +30,10 @@ use Yii;
 class Recipe extends \yii\db\ActiveRecord
 {
     const STATUS_SCRATCH = 1;
-    const STATUS_DENIED = 2;
-    const STATUS_PUBLISHED = 3;
-    const STATUS_APPROVED = 4;
+    const STATUS_PUBLISHED = 2;
+    const STATUS_APPROVED = 3;
+    const STATUS_MODIFIED = 4;
+
     /**
      * @inheritdoc
      */
@@ -47,9 +48,9 @@ class Recipe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_section', 'section', 'name', 'status', 'author'], 'required'],
-            [['parent_section', 'section', 'status', 'author', 'likes', 'views', 'reputation'], 'integer'],
-            [['add_date', 'last_view_date'], 'safe'],
+            [['section', 'name', 'status', 'author'], 'required'],
+            [['section', 'status', 'author', 'likes', 'views', 'reputation'], 'integer'],
+            [['add_date', 'edit_date', 'last_view_date'], 'safe'],
             [['name', 'alias'], 'string', 'max' => 150],
             [['description'], 'string', 'max' => 1000],
         ];
@@ -62,12 +63,12 @@ class Recipe extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent_section' => 'Parent Section',
             'section' => 'Section',
             'name' => 'Name',
             'alias' => 'Alias',
             'description' => 'Description',
             'add_date' => 'Add Date',
+            'edit_date' => 'Edit Date',
             'status' => 'Status',
             'author' => 'Author',
             'likes' => 'Likes',

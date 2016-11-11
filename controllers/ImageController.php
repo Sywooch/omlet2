@@ -3,10 +3,10 @@ namespace app\controllers;
 
 
 use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
 
 class ImageController extends \yii\web\Controller
 {
+    //todo поставить ограничение на авторизацию и автора
     public function actionRecipe($id, $num)
     {
         if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
@@ -20,6 +20,7 @@ class ImageController extends \yii\web\Controller
         exit();
     }
 
+    //todo waterMark
     public function actionPreview($id, $num)
     {
         if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
@@ -36,7 +37,7 @@ class ImageController extends \yii\web\Controller
         $image->resize(new Box($width , $height))->show('jpg');
         exit();
     }
-
+//todo waterMark
     public function actionSteppreview($id, $num)
     {
         if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
@@ -52,5 +53,28 @@ class ImageController extends \yii\web\Controller
         }
         $image->resize(new Box($width , $height))->show('jpg');
         exit();
+    }
+
+    public function actionEdit($id, $num)
+    {
+        $recipe = \app\models\Recipe::findOne((int)$id);
+        if (!$recipe) $this->goHome();
+        $stepPhotoModel = new \app\models\UploadStepPhoto();
+
+        return $this->render('edit', [
+            'stepPhotoModel' => $stepPhotoModel,
+            'id' => $id,
+            'num' => $num,
+            'alias' => $recipe->alias,
+        ]);
+    }
+
+    public function actionDelete($id, $num)
+    {
+        $recipe = \app\models\Recipe::findOne((int)$id);
+        if (!$recipe) $this->goHome();
+        $imagePath = \Yii::getAlias('@app').DS.'media'.DS.(int)$id.DS.(int)$num . '.jpg';
+        if (file_exists($imagePath)) unlink($imagePath);
+        $this->redirect(\yii\helpers\Url::to(['recipe/edit', 'alias' => $recipe->alias]));
     }
 }

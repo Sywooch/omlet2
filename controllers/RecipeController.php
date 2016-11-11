@@ -5,6 +5,7 @@ namespace app\controllers;
 use yii\filters\AccessControl;
 use app\models\Recipe;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 
 class RecipeController extends \yii\web\Controller
 {
@@ -13,11 +14,11 @@ class RecipeController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['add'],
+                'only' => ['add','edit'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['add'],
+                        'actions' => ['add','edit'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -34,9 +35,10 @@ class RecipeController extends \yii\web\Controller
     {
         if (!$alias) $this->goHome();
         $recipe = Recipe::findOne((int)$alias);
-        if (!$recipe) $this->goHome();
-        $instructions = $recipe->getInstructions()->asArray()->all();
+        if (!$recipe || ($recipe->author != \Yii::$app->user->id)) $this->goHome();
 
+        $instructions = $recipe->getInstructions()->asArray()->all();
+        $ingridients = $recipe->getIngridients()->asArray()->all();
         $mainPhotoModel = new \app\models\UploadMainPhoto();
         $stepPhotoModel = new \app\models\UploadStepPhoto();
 
@@ -46,6 +48,7 @@ class RecipeController extends \yii\web\Controller
             'mainPhotoModel' => $mainPhotoModel,
             'stepPhotoModel' => $stepPhotoModel,
             'instructions' => $instructions,
+            'ingridients' => $ingridients,
         ]);
     }
 
@@ -59,7 +62,6 @@ class RecipeController extends \yii\web\Controller
         if (\Yii::$app->request->post()) {
             $recipe = new Recipe();
             $recipe->load(\Yii::$app->request->post());
-            $recipe->parent_section = \app\models\RecipeSection::findOne($recipe->section)->parent_id;
             $recipe->status = Recipe::STATUS_SCRATCH;
             $recipe->author = \Yii::$app->user->id;
 

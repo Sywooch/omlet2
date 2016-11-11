@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: win-ivan
- * Date: 24.09.2016
- * Time: 23:22
- */
+$this->title = 'Новий рецепт';
 ?>
 
 <h3>
