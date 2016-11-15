@@ -194,3 +194,5 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+.no-resize{resize: none}
+.save-profile-btn{margin-top: 25px}

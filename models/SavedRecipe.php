@@ -1,14 +1,14 @@
 <?php
 
-namespace app\models\SavedRecipe;
+namespace app\models;
 
 use Yii;
 
 /**
  * This is the model class for table "saved_recipe".
  *
- * @property string $user_id
- * @property string $recipe_id
+ * @property integer $user_id
+ * @property integer $recipe_id
  *
  * @property User $user
  * @property Recipe $recipe

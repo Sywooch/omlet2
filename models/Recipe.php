@@ -33,7 +33,25 @@ class Recipe extends \yii\db\ActiveRecord
     const STATUS_PUBLISHED = 2;
     const STATUS_APPROVED = 3;
     const STATUS_MODIFIED = 4;
+    const STATUS_USER_DELETED = 5;
 
+
+    public static function getStatusTranslate($status)
+    {
+        $translate = [
+            self::STATUS_SCRATCH => 'Чернетка',
+            self::STATUS_PUBLISHED => 'Опублікований',
+            self::STATUS_APPROVED => 'Опублікований',
+            self::STATUS_MODIFIED => 'Опублікований',
+        ];
+        if (empty($translate[$status])) return '';
+        return $translate[$status];
+    }
+
+    public static function getActiveStatuses()
+    {
+        return [self::STATUS_PUBLISHED, self::STATUS_APPROVED, self::STATUS_MODIFIED];
+    }
     /**
      * @inheritdoc
      */
@@ -62,7 +80,6 @@ class Recipe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'section' => 'Section',
             'name' => 'Name',
             'alias' => 'Alias',
@@ -116,5 +133,13 @@ class Recipe extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(Tags::className(), ['recipe_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSection()
+    {
+        return $this->hasMany(RecipeSection::className(), ['id' => 'section']);
     }
 }

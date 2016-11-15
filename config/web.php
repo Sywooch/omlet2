@@ -45,6 +45,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'cabinet' => 'cabinet/kitchen',
                 'add' => 'recipe/add',
                 'edit/<alias>' => 'recipe/edit',
                 'recipe/<alias>' => 'recipe/show',

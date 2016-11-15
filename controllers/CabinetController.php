@@ -3,11 +3,60 @@
 namespace app\controllers;
 
 use app\models\User;
-
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use app\models\Recipe;
+use yii\helpers\Url;
 
 class CabinetController extends \yii\web\Controller
 {
 
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['kitchen','status'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['kitchen','status'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    public function actionStatus($id,$status)
+    {
+        if (!$id || !$status) $this->goHome();
+        $recipe = Recipe::findOne((int)$id);
+        if (!$recipe
+            || ($recipe->author != \Yii::$app->user->id)
+            || \Yii::$app->user->identity->is_moderator == 1
+        ) $this->goHome();
+
+        switch ($status) {
+            case Recipe::STATUS_SCRATCH:
+                $recipe->status = Recipe::STATUS_SCRATCH;
+                break;
+            case Recipe::STATUS_PUBLISHED:
+                $recipe->status = Recipe::STATUS_PUBLISHED;
+                break;
+            case Recipe::STATUS_MODIFIED:
+                $recipe->status = Recipe::STATUS_MODIFIED;
+                break;
+            case Recipe::STATUS_APPROVED:
+                if (\Yii::$app->user->identity->is_moderator != 1)
+                    $this->goHome();
+                $recipe->status = Recipe::STATUS_APPROVED;
+                break;
+            default:$this->goHome();
+        }
+        $recipe->save();
+
+        return $this->redirect(Url::to(['cabinet/kitchen']));
+    }
 
     public function actionIndex()
     {
@@ -54,9 +103,43 @@ class CabinetController extends \yii\web\Controller
         }
     }
 
+    public function actionDelete($id)
+    {
+        if (!$id) $this->goHome();
+        $recipe = Recipe::findOne((int)$id);
+        if (!$recipe || ($recipe->author != \Yii::$app->user->id)) $this->goHome();
+
+        $recipe->status = Recipe::STATUS_USER_DELETED;
+        $recipe->save();
+        return $this->redirect(Url::to(['cabinet/kitchen']));
+    }
+
     public function actionKitchen()
     {
-        return $this->render('kitchen');
+        $userRecipes = new ActiveDataProvider([
+            'query' => Recipe::find()->where(
+                'author='.(int)\Yii::$app->user->identity->id.' AND status !='.Recipe::STATUS_USER_DELETED
+            ),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        $savedRecipes = new ActiveDataProvider([
+            'query' => \Yii::$app->user->identity->getSavedRecipes(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        $user = \Yii::$app->user->identity;
+        if ($user->load(\Yii::$app->request->post())) {
+            $user->update();
+        }
+
+        return $this->render('kitchen', [
+            'userRecipes' => $userRecipes,
+            'savedRecipes' => $savedRecipes,
+            'user' => $user,
+        ]);
     }
 
     public function actionLogout()

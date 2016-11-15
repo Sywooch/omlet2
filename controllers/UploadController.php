@@ -2,6 +2,8 @@
 namespace app\controllers;
 
 
+use app\models\User;
+
 class UploadController extends \yii\web\Controller
 {
     public function actionPhoto()
@@ -42,6 +44,34 @@ class UploadController extends \yii\web\Controller
                 $response['error'] = serialize($stepPhoto->getErrors());
             }
         }
+        echo json_encode($response);
+        exit();
+    }
+
+    public function actionAvatar()
+    {
+        if (!\Yii::$app->request->isAjax) {
+            exit();
+        }
+        $response = [];
+        $userId = (int)\Yii::$app->request->post('user_id');
+
+        if (!$userId) {
+            $response['error'] = ['no need data attached'];
+            echo json_encode($response);
+            exit();
+        }
+
+        $avatar = new \app\models\UploadAvatar();
+        $avatar->photo = \yii\web\UploadedFile::getInstance($avatar, 'photo');
+        if ($avatar->upload($userId)) {
+            $user = User::findOne((int)$userId);
+            $user->avatar_status = User::AVATAR_PRESENT;
+            $user->save();
+        } else {
+            $response['error'] = serialize($avatar->getErrors());
+        }
+
         echo json_encode($response);
         exit();
     }

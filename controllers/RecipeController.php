@@ -5,7 +5,6 @@ namespace app\controllers;
 use yii\filters\AccessControl;
 use app\models\Recipe;
 use yii\helpers\Url;
-use yii\helpers\VarDumper;
 
 class RecipeController extends \yii\web\Controller
 {
@@ -35,7 +34,10 @@ class RecipeController extends \yii\web\Controller
     {
         if (!$alias) $this->goHome();
         $recipe = Recipe::findOne((int)$alias);
-        if (!$recipe || ($recipe->author != \Yii::$app->user->id)) $this->goHome();
+        if (!$recipe
+            || ($recipe->author != \Yii::$app->user->id)
+            || \Yii::$app->user->identity->is_moderator != 1
+        ) $this->goHome();
 
         $instructions = $recipe->getInstructions()->asArray()->all();
         $ingridients = $recipe->getIngridients()->asArray()->all();
@@ -64,6 +66,8 @@ class RecipeController extends \yii\web\Controller
             $recipe->load(\Yii::$app->request->post());
             $recipe->status = Recipe::STATUS_SCRATCH;
             $recipe->author = \Yii::$app->user->id;
+            $recipe->add_date = date('Y-m-d', time());
+            $recipe->likes = $recipe->views = 0;
 
             if ($recipe->validate()) {
                 $recipe->save();

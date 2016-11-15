@@ -6,6 +6,17 @@ use Imagine\Image\Box;
 
 class ImageController extends \yii\web\Controller
 {
+    public function actionAvatar($id)
+    {
+        if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg')) exit();
+
+        $imagine = new \Imagine\Gd\Imagine();
+        $filePath = \Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg';
+        $image = $imagine->open($filePath);
+        $image->show('jpg');
+        exit();
+    }
+
     //todo поставить ограничение на авторизацию и автора
     public function actionRecipe($id, $num)
     {

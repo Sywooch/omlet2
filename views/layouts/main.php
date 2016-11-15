@@ -52,7 +52,7 @@ AppAsset::register($this);
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?=Url::to(['search/recipes'])?>">Рецепти</a></li>
                     <li><a href="<?=Url::to(['recipe/add'])?>"><span class="glyphicon glyphicon-plus"  aria-hidden="true"></span> Додати рецепт</a></li>
-                    <li><a href="<?=(Yii::$app->user->isGuest)?'/cabinet/enter':'/cabinet/kitchen'?>"><span class="glyphicon glyphicon-user"  aria-hidden="true"></span> Кабінет</a></li>
+                    <li><a href="<?=(Yii::$app->user->isGuest)? Url::to(['cabinet/enter']): Url::to(['cabinet/kitchen'])?>"><span class="glyphicon glyphicon-user"  aria-hidden="true"></span> Кабінет</a></li>
                     <?php
                     if (!Yii::$app->user->isGuest) { ?>
                         <li><a href="/cabinet/logout">Вийти</a></li>

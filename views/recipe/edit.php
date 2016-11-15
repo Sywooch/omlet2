@@ -1,5 +1,6 @@
 <?php
 use \yii\helpers\Url;
+use \app\models\Recipe;
 $this->title = 'Omlet - редактируем рецепт';
 $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
 ?>
@@ -10,12 +11,20 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
 <div class="container">
     <div class="row">
         <div class="col-md-2 col-xs-12">
-            <button class="btn btn-primary scratch-btn control-btn">
+            <a href="<?=Url::to(
+                ['cabinet/status',
+                    'id' => $recipe['id'],
+                    'status' => $recipe['status'] == Recipe::STATUS_SCRATCH ? Recipe::STATUS_SCRATCH : Recipe::STATUS_MODIFIED
+                ])?>" class="btn btn-primary scratch-btn control-btn">
                 До чернеток
-            </button>
-            <button class="btn btn-success publish-btn control-btn">
+            </a>
+            <a href="<?=Url::to(
+                ['cabinet/status',
+                    'id' => $recipe['id'],
+                    'status' =>Recipe::STATUS_PUBLISHED
+                ])?>" class="btn btn-success publish-btn control-btn">
                 Опублікувати
-            </button>
+            </a>
         </div>
         <div class="col-md-3 col-xs-12">
             <h1>Що готуємо?</h1>

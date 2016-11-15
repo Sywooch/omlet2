@@ -10,6 +10,8 @@ $(document).ready(function(){
         addBlock += '</div>';
         addBlock += '</div>';
         $(this).before(addBlock);
+
+        $('.ingridients-group').find('input').last().focus();
     });
 
     $('body').on('focus', '.recipe-info', function(){
