@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $name
+ * @property string $alias
  * @property string $parent_id
  */
 class RecipeSection extends \yii\db\ActiveRecord
@@ -29,7 +30,7 @@ class RecipeSection extends \yii\db\ActiveRecord
         return [
             [['name', 'parent_id'], 'required'],
             [['parent_id'], 'integer'],
-            [['name'], 'string', 'max' => 100],
+            [['name','alias'], 'string', 'max' => 100],
         ];
     }
 
@@ -59,5 +60,10 @@ class RecipeSection extends \yii\db\ActiveRecord
         }
 
         return $allSections;
+    }
+
+    public function getRecipes()
+    {
+        return $this->hasMany(Recipe::className(), ['section' => 'id']);
     }
 }

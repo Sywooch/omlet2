@@ -71,11 +71,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'username' => 'Username',
             'status' => 'Status',
             'is_moderator' => 'Is Moderator',
-            'registration_date' => 'Registaration Date',
+            'registration_date' => 'Дата реєстрації',
             'last_active_date' => 'Last Active Date',
             'avatar_status' => 'Avatar Status',
-            'about_me' => 'About Me',
-            'birthday_date' => 'Birthday Date',
+            'about_me' => 'Про мене',
+            'birthday_date' => 'День Народження',
         ];
     }
 

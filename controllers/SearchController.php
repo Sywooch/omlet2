@@ -2,16 +2,43 @@
 
 namespace app\controllers;
 
+use app\models\Recipe;
+use app\models\RecipeSection;
+use yii\data\ActiveDataProvider;
+
 class SearchController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $recipes = Recipe::find()->orderBy('reputation DESC');
+
+        if(!$recipes) $this->goHome();
+
+
+        $recipesProvider = new ActiveDataProvider([
+                'query' => $recipes,
+                'pagination'=>['pageSize'=>12]
+            ]
+        );
+
+        return $this->render('index', [
+            'recipesProvider' => $recipesProvider,
+        ]);
     }
 
-    public function actionRecipes()
+    public function actionCategory($alias)
     {
-        return $this->render('recipes');
-    }
+        $recipes = RecipeSection::find()->where(['alias' => $alias])->one()->getRecipes()->orderBy('reputation DESC');
 
+        if(!$recipes) $this->goHome();
+
+        $recipesProvider = new ActiveDataProvider([
+                'query' => $recipes,
+                'pagination'=>['pageSize'=>12]
+            ]
+        );
+        return $this->render('index', [
+            'recipesProvider' => $recipesProvider,
+        ]);
+    }
 }
