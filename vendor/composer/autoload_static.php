@@ -107,6 +107,13 @@ class ComposerStaticInit58c1c851c7f923d8e02cc0035d79404c
                 0 => __DIR__ . '/..' . '/andre_487',
             ),
         ),
+        'a' => 
+        array (
+            'abeautifulsite' => 
+            array (
+                0 => __DIR__ . '/..' . '/abeautifulsite/simpleimage/src',
+            ),
+        ),
         'I' => 
         array (
             'Imagine' => 
