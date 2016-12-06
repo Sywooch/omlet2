@@ -1,17 +1,10 @@
 $(document).ready(function(){
     $('#ingridient-add').on('click', function(){
-        var addBlock = '';
-        addBlock += '<div class="row">';
-        addBlock += '<div class="col-xs-10">';
-        addBlock += '<input type="text" class="form-control recipe-info" placeholder="...">';
-        addBlock += '</div>';
-        addBlock += '<div class="col-xs-2">';
-        addBlock += '<span onclick="removeIng($(this));" class="glyphicon glyphicon-remove ing-btn-remove" aria-hidden="true"></span>';
-        addBlock += '</div>';
-        addBlock += '</div>';
-        $(this).before(addBlock);
+        $(this).before(fetchAddBlock());
 
-        $('.ingridients-group').find('input').last().focus();
+        setTimeout(function(){
+            $('.ingridients-group').find('input').last().focus();
+        }, 500);
     });
 
     $('body').on('focus', '.recipe-info', function(){
@@ -20,8 +13,26 @@ $(document).ready(function(){
             saveRecipeInfo()
         });
     });
-
 });
+function fetchAddBlock(dataId, value){
+    if (typeof dataId == 'undefined')
+        dataId = '';
+    if (typeof value == 'undefined')
+        value = '';
+
+    var addBlock = '';
+    addBlock += '<div class="row">';
+    addBlock += '<div class="col-xs-10">';
+    addBlock += '<input type="text" class="form-control recipe-info" data-id="' + dataId + '" placeholder="..." value="'+value+'">';
+    addBlock += '</div>';
+    addBlock += '<div class="col-xs-2">';
+    addBlock += '<span onclick="removeIng($(this));" class="glyphicon glyphicon-remove ing-btn-remove" aria-hidden="true"></span>';
+    addBlock += '</div>';
+    addBlock += '</div>';
+
+    return addBlock;
+
+}
 
 function removeIng(el){
     var id = el.parent().parent().find('input').data('id');
@@ -43,6 +54,9 @@ function showSave(){
     });
 }
 function saveRecipeInfo(){
+    if (window.updateProcessing === true) return false;
+
+    window.updateProcessing = true;
     var recipeId = $('input[name="recipeId"]').val();
     var recipeName =  $('input[name="Recipe[name]"]').val();
     var recipeSection =  $('select[name="Recipe[section]"]').val();
@@ -82,14 +96,36 @@ function saveRecipeInfo(){
         data: {'recipeInfo' : JSON.stringify(recipeInfo)},
         success:function (response) {
             response = JSON.parse(response);
+            console.log(response);
             if (response.error === false) {
                 resetIngridients();
+                updateIngridients(response.ingridients);
+                updateSteps(response.steps);
                 showSave();
             }
             $('.control-btn').removeAttr('disabled');
         }
     });
+    setTimeout(function(){window.updateProcessing = false;}, 1000);
+
     return success;
+}
+
+function updateSteps(steps){
+    steps.forEach(function(item, i, arr){
+        $('textarea[value="'+item.instrution+'"]').attr('data-id', item.id);
+    });
+}
+
+function updateIngridients(ings){
+    var newIngs = '';
+    ings.forEach(function(item, i, arr){
+        newIngs += fetchAddBlock(item.id, item.name);
+    });
+    newIngs += fetchAddBlock();
+
+    $('.ingridients-group').find('div').remove();
+    $('#ingridient-add').before(newIngs);
 }
 
 function resetIngridients(){

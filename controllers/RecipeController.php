@@ -71,7 +71,9 @@ class RecipeController extends \yii\web\Controller
 
             if ($recipe->validate()) {
                 $recipe->save();
-                mkdir(\Yii::getAlias('@app') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . $recipe->id);
+                $dirPath = \Yii::getAlias('@app') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . $recipe->id;
+                if (!file_exists($dirPath))
+                    mkdir($dirPath);
                 $recipe->alias = \php_rutils\RUtils::translit()->slugify($recipe->id.'-'.$recipe->name);
                 $recipe->save();
                 $this->redirect(Url::to(['recipe/edit', 'alias' => $recipe->alias]));

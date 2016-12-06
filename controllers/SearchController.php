@@ -10,7 +10,7 @@ class SearchController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $recipes = Recipe::find()->orderBy('reputation DESC');
+        $recipes = Recipe::find()->where(['status' => Recipe::getActiveStatuses()])->orderBy('reputation DESC');
 
         if(!$recipes) $this->goHome();
 
@@ -28,7 +28,8 @@ class SearchController extends \yii\web\Controller
 
     public function actionCategory($alias)
     {
-        $recipes = RecipeSection::find()->where(['alias' => $alias])->one()->getRecipes()->orderBy('reputation DESC');
+        $recipes = RecipeSection::find()->where(['alias' => $alias])->one()
+            ->getRecipes()->where(['status' => Recipe::getActiveStatuses()])->orderBy('reputation DESC');
 
         if(!$recipes) $this->goHome();
 

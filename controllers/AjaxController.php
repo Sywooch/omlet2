@@ -71,6 +71,7 @@ class AjaxController extends \yii\web\Controller
             }
 
             $response->steps = $recipe->getInstructions()->asArray()->all();
+            $response->ingridients = $recipe->getIngridients()->asArray()->all();
             echo json_encode($response);
             exit();
         }

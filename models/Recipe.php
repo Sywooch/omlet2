@@ -35,6 +35,16 @@ class Recipe extends \yii\db\ActiveRecord
     const STATUS_MODIFIED = 4;
     const STATUS_USER_DELETED = 5;
 
+    public static function getActiveStatuses()
+    {
+        return [
+            self::STATUS_PUBLISHED,
+            self::STATUS_APPROVED,
+            self::STATUS_MODIFIED,
+            self::STATUS_MODIFIED
+        ];
+    }
+
 
     public static function getStatusTranslate($status)
     {
@@ -48,10 +58,6 @@ class Recipe extends \yii\db\ActiveRecord
         return $translate[$status];
     }
 
-    public static function getActiveStatuses()
-    {
-        return [self::STATUS_PUBLISHED, self::STATUS_APPROVED, self::STATUS_MODIFIED];
-    }
     /**
      * @inheritdoc
      */
