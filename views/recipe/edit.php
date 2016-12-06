@@ -91,7 +91,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="description">Декілька слів про страву:</label>
-            <textarea rows="15" class="form-control recipe-info" id="description" name="Recipe[description]"><?=(!is_null($recipe['description']))?$recipe['description']:''?></textarea>
+            <textarea rows="19" class="form-control recipe-info" id="description" name="Recipe[description]"><?=(!is_null($recipe['description']))?$recipe['description']:''?></textarea>
             </div>
         </div>
         <div class="col-md-3 col-xs-12 ingridients-group">

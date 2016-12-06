@@ -133,7 +133,7 @@ use \yii\helpers\Url;
                                     'resizeImageQuality' => 0.75,
                                     'defaultPreviewContent' =>
                                         file_exists(\Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.\Yii::$app->user->identity->id.'.jpg')?
-                                            '<img class="photo-mobile" src="'.Url::to(['image/avatar', 'id' => \Yii::$app->user->identity->id]).'"">':
+                                            '<img src="'.Url::to(['image/avatar', 'id' => \Yii::$app->user->identity->id]).'"">':
                                             '',
                                 ]
                             ]);

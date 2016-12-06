@@ -2,67 +2,61 @@
 namespace app\controllers;
 
 
+use abeautifulsite\SimpleImage;
 use Imagine\Image\Box;
 
 class ImageController extends \yii\web\Controller
 {
+    const IMAGE_TEXT = ' omlet.kiev.ua';
+
     public function actionAvatar($id)
     {
-        if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg')) exit();
-
-        $imagine = new \Imagine\Gd\Imagine();
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg';
-        $image = $imagine->open($filePath);
-        $image->show('jpg');
+        if (!file_exists($filePath)) exit();
+
+        $image = new SimpleImage($filePath);
+        $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
+        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+
         exit();
     }
 
     //todo поставить ограничение на авторизацию и автора
     public function actionRecipe($id, $num)
     {
-        if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
+        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
+        if (!file_exists($filePath)) exit();
 
-        $imagine = new \Imagine\Gd\Imagine();
-        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.(int)$num.'.jpg';
-        $image = $imagine->open($filePath);
-        $originalSize = $image->getSize();
-        $proportion = $originalSize->getHeight() / $originalSize->getWidth();
-        $image->resize(new Box(750 , 750*$proportion))->show('jpg');
+        $image = new SimpleImage($filePath);
+        $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
+        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+
         exit();
     }
 
     //todo waterMark
     public function actionPreview($id, $num)
     {
-        if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
+        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
+        if (!file_exists($filePath)) exit();
 
-        $imagine = new \Imagine\Gd\Imagine();
-        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS .(int)$num.'.jpg';
-        $image = $imagine->open($filePath);
-        $originalSize = $image->getSize();
-        $proportion = $originalSize->getHeight() / $originalSize->getWidth();
-        switch (400*$proportion <= 375) {
-            case true: $width = 400; $height = 400 * $proportion; break;
-            case false: $height = 375; $width = 375 / $proportion; break;
-        }
-        $image->resize(new Box($width , $height))->show('jpg');
+        $image = new SimpleImage($filePath);
+        $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
+        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+
+
         exit();
     }
 //todo waterMark
     public function actionSteppreview($id, $num)
     {
-        if (!file_exists(\Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg')) exit();
+        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
+        if (!file_exists($filePath)) exit();
 
-        $imagine = new \Imagine\Gd\Imagine();
-        $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS .(int)$num.'.jpg';
-        $image = $imagine->open($filePath);
-        $originalSize = $image->getSize();
-        $proportion = $originalSize->getHeight() / $originalSize->getWidth();
-        switch (250*$proportion <= 188) {
-            case true: $width = 250; $height = 250 * $proportion; break;
-            case false: $height = 188; $width = 188 / $proportion; break;
-        }
-        $image->resize(new Box($width , $height))->show('jpg');
+        $image = new SimpleImage($filePath);
+        $image->adaptive_resize(190, 160);
+        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", 30, '#e7e516', 'bottom left' )->output();
+
         exit();
     }
 

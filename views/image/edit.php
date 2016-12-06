@@ -36,7 +36,7 @@ if (file_exists($imgPath)) { ?>
                 'maxFileCount' => 1,
                 'resizeImageQuality' => 0.75,
                 'defaultPreviewContent' => file_exists($imgPath) ?
-                    '<img src="' . Url::to(['image/steppreview', 'id' => $id, 'num' => $num]) . '">' : '',
+                    '<img class="photo-mobile" src="' . Url::to(['image/preview', 'id' => $id, 'num' => $num]) . '">' : '',
             ]
         ]);
         ?>
