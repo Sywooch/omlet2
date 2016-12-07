@@ -191,7 +191,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                     <img class="step-img-holder" src="/web/img/step_img_def.jpeg">
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <textarea rows="17" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
+                    <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
                 </div>
                 <div class="col-md-3 col-xs-12 mob-margin">
                     <?php

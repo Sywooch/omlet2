@@ -96,7 +96,6 @@ function saveRecipeInfo(){
         data: {'recipeInfo' : JSON.stringify(recipeInfo)},
         success:function (response) {
             response = JSON.parse(response);
-            console.log(response);
             if (response.error === false) {
                 resetIngridients();
                 updateIngridients(response.ingridients);
@@ -111,10 +110,14 @@ function saveRecipeInfo(){
     return success;
 }
 
-function updateSteps(steps){
-    steps.forEach(function(item, i, arr){
-        $('textarea[value="'+item.instrution+'"]').attr('data-id', item.id);
-    });
+function updateSteps(steps) {
+    var newStep = $('textarea.step-description').last();
+    var newItem = steps.pop();
+
+    if (typeof newStep.data('id') != 'undefined') return;
+
+    var newBlock = '<textarea rows="11" data-id="'+newItem.id+'" class="step-description form-control recipe-info">'+newItem.instruction+'</textarea>';
+    newStep.parent().html(newBlock);
 }
 
 function updateIngridients(ings){
