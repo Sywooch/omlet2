@@ -7,7 +7,11 @@ if (in_array($_SERVER['HTTP_HOST'], ['omlet2', 'omlet.dev'])) {
 } else {
     define('IS_LOCAL', false);
 }
+
 define('DS', DIRECTORY_SEPARATOR);
+
+// dump func
+require __DIR__ . '/../service/dump-func.php';
 
 
 require(__DIR__ . '/../vendor/autoload.php');

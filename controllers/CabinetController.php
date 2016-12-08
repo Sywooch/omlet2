@@ -73,11 +73,12 @@ class CabinetController extends \yii\web\Controller
         if (\Yii::$app->request->post()) {
             $user = new User();
             $user->load(\Yii::$app->request->post());
-            if ($user->signIn()) {
-                //redirect to need url
-               return $this->redirect('/cabinet/kitchen');
-            }
+            if ($user->signIn())
+                return $this->redirect(Url::previous());
+        } else {
+            Url::remember(Url::previous());
         }
+
         $this->redirect('/cabinet/enter');
     }
 
@@ -89,7 +90,7 @@ class CabinetController extends \yii\web\Controller
                 $user->load(\Yii::$app->request->post());
                 if ($user->signUp()) {
                     //redirect to need url
-                    $this->redirect('/cabinet/kitchen');
+                    $this->redirect(Url::previous());
                 } else {
                     \Yii::$app->session->set('registration',1);
                     $this->redirect('/cabinet/enter');

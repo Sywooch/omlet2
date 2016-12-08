@@ -12,6 +12,7 @@ use Yii;
  * @property string $name
  * @property string $alias
  * @property string $description
+ * @property string $cook_time
  * @property string $add_date
  * @property string $edit_date
  * @property integer $status
@@ -73,7 +74,7 @@ class Recipe extends \yii\db\ActiveRecord
     {
         return [
             [['section', 'name', 'status', 'author'], 'required'],
-            [['section', 'status', 'author', 'likes', 'views', 'reputation'], 'integer'],
+            [['section', 'status', 'author', 'likes', 'views', 'reputation', 'cook_time'], 'integer'],
             [['add_date', 'edit_date', 'last_view_date'], 'safe'],
             [['name', 'alias'], 'string', 'max' => 150],
             [['description'], 'string', 'max' => 1000],

@@ -26,10 +26,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                 Опублікувати
             </a>
         </div>
-        <div class="col-md-3 col-xs-12">
-            <h1>Що готуємо?</h1>
-        </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-5 col-xs-12">
             <label for="recipeName">Назва страви:</label>
             <input type="hidden" name="recipeId" value="<?=$recipe['id']?>">
             <input type="text" class="form-control recipe-info" id="recipeName" name="Recipe[name]" value="<?=$recipe['name']?>">
@@ -48,6 +45,13 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                     </optgroup>
                 <?php } ?>
             </select>
+        </div>
+        <div class="col-md-2 col-xs-12">
+            <label for="recipeCookTime">Час приготування:</label>
+            <div class="input-group">
+                <input type="number" value="<?= $recipe->cook_time ?>" class="form-control recipe-info" id="recipeCookTime" required name="Recipe[cook_time]">
+                <div class="input-group-addon">хв</div>
+            </div>
         </div>
     </div>
     <hr>
@@ -127,7 +131,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                 <img class="step-img-holder" src="/web/img/step_img_def.jpeg">
             </div>
             <div class="col-md-8 col-xs-7">
-                <textarea rows="17" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
+                <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
             </div>
             <div class="col-md-3 col-xs-5">
                 <?php
@@ -244,4 +248,14 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        $('#recipeCookTime').on('input', function(){
+            if ($(this).val() < 0)
+                $(this).val('0');
+        });
+    });
+</script>
 

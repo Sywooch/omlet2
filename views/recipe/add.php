@@ -30,8 +30,26 @@ $this->title = 'Новий рецепт';
         </div>
     </div>
     <div class="form-group">
+        <label for="recipeName" class="col-sm-4 control-label">Чи довго готувати?</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input type="number" class="form-control" id="recipeCookTime" required name="Recipe[cook_time]">
+                <div class="input-group-addon">хв</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-8">
             <button type="submit" class="btn btn-default">Додати</button>
         </div>
     </div>
 </form>
+
+<script>
+    $(document).ready(function(){
+        $('#recipeCookTime').on('input', function(){
+            if ($(this).val() < 0)
+                $(this).val('0');
+        });
+    });
+</script>

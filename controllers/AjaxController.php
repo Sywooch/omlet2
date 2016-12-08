@@ -20,10 +20,11 @@ class AjaxController extends \yii\web\Controller
         $recipe = Recipe::findOne($recipeInfo->id);
         if (!$recipe) exit('fail');
 
-        $recipe->name = $recipeInfo->name;
+        $recipe->name = !empty($recipeInfo->name) ? $recipeInfo->name : $recipe->name;
         $recipe->section = $recipeInfo->sectionId;
         $recipe->alias = \php_rutils\RUtils::translit()->slugify($recipe->id.'-'.$recipe->name);
-        $recipe->description = $recipeInfo->recipeDesc;
+        $recipe->description = !empty($recipeInfo->recipeDesc) ? $recipeInfo->recipeDesc : $recipe->description;
+        $recipe->cook_time = !empty($recipeInfo->cookTime) ? $recipeInfo->cookTime : $recipe->cook_time;
         $recipe->edit_date = date('Y-m-d', time());
         $recipe->status = $recipe->status === Recipe::STATUS_SCRATCH ? Recipe::STATUS_SCRATCH : Recipe::STATUS_MODIFIED;
 

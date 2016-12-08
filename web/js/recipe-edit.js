@@ -61,13 +61,16 @@ function saveRecipeInfo(){
     var recipeName =  $('input[name="Recipe[name]"]').val();
     var recipeSection =  $('select[name="Recipe[section]"]').val();
     var recipeDesc =  $('textarea[name="Recipe[description]"]').val();
+    var recipeCookTime = $('input[name="Recipe[cook_time]"]').val();
 
     var ingridients = [];
     $('.ingridients-group').find('input').each(function(){
-        var ing = {
-            id : $(this).data('id') ? $(this).data('id').toString() : 'new',
-            name : $(this).val()
-        };
+        if ($(this).val() != '...') {
+            var ing = {
+                id : $(this).data('id') ? $(this).data('id').toString() : 'new',
+                name : $(this).val()
+            };
+        }
 
         ingridients.push(ing);
     });
@@ -85,6 +88,7 @@ function saveRecipeInfo(){
         name: recipeName,
         sectionId: recipeSection,
         recipeDesc: recipeDesc,
+        cookTime: recipeCookTime,
         ing: ingridients,
         steps: steps
     }
@@ -114,7 +118,7 @@ function updateSteps(steps) {
     var newStep = $('textarea.step-description').last();
     var newItem = steps.pop();
 
-    if (typeof newStep.data('id') != 'undefined') return;
+    if (!newItem || typeof newStep.data('id') != 'undefined') return;
 
     var newBlock = '<textarea rows="11" data-id="'+newItem.id+'" class="step-description form-control recipe-info">'+newItem.instruction+'</textarea>';
     newStep.parent().html(newBlock);
