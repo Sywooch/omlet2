@@ -1,3 +1,5 @@
+#logo{transform: rotate(-38deg); margin-top: -5px;}
+
 .logo-adapted{
     margin-top: -22px;
     transform: rotate(-30deg);
@@ -197,8 +199,8 @@ a.desc:after {
 .no-resize{resize: none}
 .save-profile-btn{margin-top: 25px}
 .recipe-wrapper{
-    width: 255px;
-    height: 400px;
+    width: 355px;
+    height: 430px;
     border: 1px solid grey;
     display: block;
     border-radius: 10px;
@@ -212,8 +214,20 @@ a.desc:after {
 .recipe-ava-wrapper > img{
     max-width:100%;height:auto;
 }
+.time-img { max-width:70%;height:auto;}
 .rec-ing{
     position: relative;
     margin-left: 18px;
 }
 .step .file-drop-zone-title {padding: 26px 10px;}
+.rec-ing td {border: none!important;}
+.rec-name > p, .time-span {
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    color: #262626;
+}
+.rec-name > p{font-size: 24px;}
+.time-span{font-size: 20px;text-align: center}
+.rec-name > p:hover{text-decoration: none;}
+

@@ -25,9 +25,17 @@ class RecipeController extends \yii\web\Controller
         ];
     }
 
-    public function actionShow()
+    public function actionShow($alias)
     {
-        return $this->render('show');
+        if (!$alias) $this->goHome();
+        $recipe = Recipe::findOne((int)$alias);
+
+        if (!$recipe || $alias !== $recipe->alias) $this->goHome();
+
+
+        return $this->render('show',[
+            'recipe' => $recipe,
+        ]);
     }
 
     public function actionEdit($alias)

@@ -1,18 +1,54 @@
 <?php
+
 /* @var $this yii\web\View */
+use \yii\helpers\Url;
 
-?>
-<p>хлебные крошки</p>
+$homeLink = [
+    'label' => 'Головна',
+    'url' => '/',
+];
+echo '<br>';
 
-<?php
-if (\Yii::$app->controller->action->id == 'index'){ ?>
-    <p>выбор категорий</p>
+echo \yii\widgets\Breadcrumbs::widget([
+    'homeLink' => $homeLink,
+    'links' => $breadcrumbs,
 
-<?php } else { ?>
-    <p>выбор drugoi category</p>
+]);
 
+//images for main categories
+if (!empty($mainCats)) { ?>
+    <div class="row">
+        <?php
+        foreach ($mainCats as $cat) { ?>
+            <div class="col-xs-2 col-md-1">
+                <a href="<?= Url::to(['search/category', 'alias' => $cat['alias']]) ?>" title="<?= $cat['name'] ?>">
+                    <?= $cat['name'] ?>
+                </a>
+            </div>
+        <?php } ?>
+    </div>
+<?php }
+
+//subcategories
+if (!empty($children)) { ?>
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <table class="table table-condensed">
+                <thead><tr><th>Бажаєте щось більш конкретне?</th></tr></thead>
+                <tbody>
+                <?php
+                foreach ($children as $child) { ?>
+                    <tr>
+                        <td>
+                            <a href="<?= Url::to(['search/category', 'alias' => $child->alias]) ?>" title="<?= $child->name ?>"><?= $child->name ?></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 <?php } ?>
-
 
 <div class="recipes">
     <?=\yii\widgets\ListView::widget([

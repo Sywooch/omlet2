@@ -1,4 +1,9 @@
 <?php
-
+/**
+ * @var $recipe app\models\Recipe
+ *
+ *
+ *
+ */
 echo '<pre>';
-var_dump(\Yii::$app->request->get());
+var_dump($recipe);

@@ -66,4 +66,14 @@ class RecipeSection extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Recipe::className(), ['section' => 'id']);
     }
+
+    public function getParent()
+    {
+        return $this->hasOne(self::className(), ['id' => 'parent_id']);
+    }
+
+    public function getChilds()
+    {
+        return $this->hasOne(self::className(), ['parent_id' => 'id']);
+    }
 }
