@@ -8,7 +8,9 @@ $this->title = 'Omlet - Поиск рецептов';
     <div class="jumbotron">
        <div class="row">
            <div class="col-md-6 col-xs-12"> что ищем?</div>
-           <div class="col-md-6 col-xs-12"> tag cloud</div>
+           <div class="col-md-6 col-xs-12">
+               <img src="<?= $imageUrl ?>" title="" alt="" />
+           </div>
        </div>
     </div>
     <div class="body-content">

@@ -20,7 +20,7 @@ class SearchController extends \yii\web\Controller
         array_unshift($breadcrumbs, $recipesLink);
 
         //main categories
-        $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->asArray()->all();
+        $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->all();
 
         $recipesProvider = new ActiveDataProvider([
                 'query' => $recipes,

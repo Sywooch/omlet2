@@ -21,8 +21,10 @@ if (!empty($mainCats)) { ?>
         <?php
         foreach ($mainCats as $cat) { ?>
             <div class="col-xs-2 col-md-1">
-                <a href="<?= Url::to(['search/category', 'alias' => $cat['alias']]) ?>" title="<?= $cat['name'] ?>">
-                    <?= $cat['name'] ?>
+                <a href="<?= Url::to(['search/category', 'alias' => $cat->alias]) ?>" title="<?= $cat->name ?>">
+                    <?= $cat->getImageUrl() ?
+                        '<img src="'.$cat->getImageUrl().'" title="'.$cat->name.'" alt="'.$cat->name.'" />'
+                        : $cat['name'] ?>
                 </a>
             </div>
         <?php } ?>

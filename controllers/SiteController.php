@@ -3,11 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -18,25 +14,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $user = new \app\models\User();
-        return $this->render('index');
-    }
 
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
+        return $this->render('index', [
+            'imageUrl' => $this->getLandingImageUrl(),
         ]);
     }
+
+    public function getLandingImageUrl()
+    {
+        $imgPath = \Yii::getAlias('@app') . DS .  'web' . DS .'img'.DS. 'landing' . DS . '*';
+        $images = array_map(function($img){return end(explode(DS, $img));}, glob($imgPath));
+
+        return '/web/img/landing/' . $images[array_rand($images)];
+    }
+
 }

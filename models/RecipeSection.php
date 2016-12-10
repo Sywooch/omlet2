@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "recipe_section".
@@ -20,6 +21,15 @@ class RecipeSection extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'recipe_section';
+    }
+
+    public function getImageUrl()
+    {
+        $filePath = \Yii::getAlias('@app') . DS .  'web' . DS .'img'.DS.  'sections' . DS. $this->id . '.png';
+        if (file_exists($filePath))
+            return '/web/img/sections/' . $this->id . '.png';
+
+        return '';
     }
 
     /**
