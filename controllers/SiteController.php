@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\RecipeSection;
 use Yii;
 use yii\web\Controller;
 
@@ -14,9 +15,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->all();
 
         return $this->render('index', [
             'imageUrl' => $this->getLandingImageUrl(),
+            'mainCats' => $mainCats,
         ]);
     }
 

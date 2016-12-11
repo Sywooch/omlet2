@@ -230,4 +230,5 @@ a.desc:after {
 .rec-name > p{font-size: 24px;}
 .time-span{font-size: 20px;text-align: center}
 .rec-name > p:hover{text-decoration: none;}
+#main-search-block > .col-xs-3 {height: 65px;}
 
