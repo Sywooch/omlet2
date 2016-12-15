@@ -45,6 +45,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'search' => 'search/search',
                 'recipes' => 'search/index',
                 'recipes/<alias>' => 'search/category',
                 'cabinet' => 'cabinet/kitchen',

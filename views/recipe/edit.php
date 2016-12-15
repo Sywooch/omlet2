@@ -128,7 +128,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
     if (empty($instructions)) { ?>
         <div class="row step" id="steps">
             <div class="col-md-1 hidden-xs">
-                <img class="step-img-holder" src="/web/img/step_img_def.jpeg">
+                <img class="step-img-holder" src="/web/img/step.png">
             </div>
             <div class="col-md-8 col-xs-7">
                 <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
@@ -171,7 +171,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
             </script>
             <div class="row step" id="steps">
                 <div class="col-md-1 hidden-xs">
-                    <img class="step-img-holder" src="/web/img/step_img_def.jpeg">
+                    <img class="step-img-holder" src="/web/img/step.png">
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <span onclick="removeStep($(this));" class="glyphicon glyphicon-remove step-btn-remove" aria-hidden="true"></span>
@@ -192,7 +192,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         if (isset($_POST['stepAdd'])) { ?>
             <div class="row step mob-margin" id="steps">
                 <div class="col-md-1 hidden-xs">
-                    <img class="step-img-holder" src="/web/img/step_img_def.jpeg">
+                    <img class="step-img-holder" src="/web/img/step.png">
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>

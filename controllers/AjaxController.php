@@ -4,13 +4,56 @@ namespace app\controllers;
 
 use app\models\Ingridient;
 use app\models\Instruction;
+use app\models\Likes;
 use app\models\Recipe;
 use app\models\RecipeSection;
+use app\models\SavedRecipe;
 use yii\helpers\Url;
 
 class AjaxController extends \yii\web\Controller
 {
-    //todo: прописать ограничение только аякс на весь контроллер
+    public function beforeAction($action)
+    {
+        if (!\Yii::$app->request->isAjax)
+            die('nafig');
+
+        return parent::beforeAction($action);
+    }
+
+    public function actionLike()
+    {
+        if (!isset($_POST['recipeId']) || \Yii::$app->user->isGuest) die();
+
+        $alreadyLike = Likes::find()->where(['recipe_id' => (int)$_POST['recipeId'], 'user_id' => \Yii::$app->user->identity->id])->one();
+        if (!empty($alreadyLike)) {
+            $alreadyLike->delete();
+            die();
+        }
+
+        $like = new Likes();
+        $like->recipe_id = (int)$_POST['recipeId'];
+        $like->user_id = \Yii::$app->user->identity->id;
+        $like->save();
+        die();
+    }
+
+    public function actionSave()
+    {
+        if (!isset($_POST['recipeId']) || \Yii::$app->user->isGuest) die();
+
+        $alreadyLike = SavedRecipe::find()->where(['recipe_id' => (int)$_POST['recipeId'], 'user_id' => \Yii::$app->user->identity->id])->one();
+        if (!empty($alreadyLike)) {
+            $alreadyLike->delete();
+            die();
+        }
+
+        $like = new SavedRecipe();
+        $like->recipe_id = (int)$_POST['recipeId'];
+        $like->user_id = \Yii::$app->user->identity->id;
+        $like->save();
+        die();
+    }
+
     public function actionSaverecipeinfo()
     {
         $recipeInfo = isset($_POST['recipeInfo']) ? json_decode($_POST['recipeInfo']) : false;

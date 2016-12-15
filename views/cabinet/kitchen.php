@@ -84,13 +84,6 @@ use \yii\helpers\Url;
                         'dataProvider' => $savedRecipes,
                         'columns' => [
                             [
-                                'label' => 'Розділ',
-                                'options' => ['width' => '40%'],
-                                'content'=>function($data){
-                                    return $data->getRecipe()->one()->getSection()->one()->name;
-                                }
-                            ],
-                            [
                                 'label' => 'Рецепт',
                                 'content'=>function($data){
                                     return Html::a($data->getRecipe()->one()->name, Url::to(
@@ -99,6 +92,13 @@ use \yii\helpers\Url;
                                             ]
                                         )
                                     );
+                                }
+                            ],
+                            [
+                                'label' => 'Розділ',
+                                'options' => ['width' => '40%'],
+                                'content'=>function($data){
+                                    return $data->getRecipe()->one()->getSection()->one()->name;
                                 }
                             ],
                         ]
@@ -143,7 +143,6 @@ use \yii\helpers\Url;
                             <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'user-profile']) ?>
                             <table class="table table-striped">
                                 <?php
-                                //todo тут доделать
                                 $template = '<tr><td>{label}</td><td>{input}</td></tr>';
                                 echo $form->field($user, 'username',['template' => $template]);
                                 echo $form->field($user, 'birthday_date',['template' => $template])->input('date');

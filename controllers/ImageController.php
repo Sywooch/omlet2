@@ -3,6 +3,8 @@ namespace app\controllers;
 
 
 use abeautifulsite\SimpleImage;
+use app\models\Recipe;
+use app\models\User;
 use Imagine\Image\Box;
 
 class ImageController extends \yii\web\Controller
@@ -11,6 +13,9 @@ class ImageController extends \yii\web\Controller
 
     public function actionAvatar($id)
     {
+        if (\Yii::$app->user->isGuest || \Yii::$app->user->identity->id != $id)
+            return $this->goHome();
+
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg';
         if (!file_exists($filePath)) exit();
 
@@ -21,7 +26,6 @@ class ImageController extends \yii\web\Controller
         exit();
     }
 
-    //todo поставить ограничение на авторизацию и автора
     public function actionRecipe($id, $num)
     {
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
@@ -34,7 +38,6 @@ class ImageController extends \yii\web\Controller
         exit();
     }
 
-    //todo waterMark
     public function actionPreview($id, $num)
     {
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
@@ -47,7 +50,7 @@ class ImageController extends \yii\web\Controller
 
         exit();
     }
-//todo waterMark
+
     public function actionSteppreview($id, $num)
     {
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.$id.DS.$num.'.jpg';
@@ -76,6 +79,9 @@ class ImageController extends \yii\web\Controller
 
     public function actionDelete($id, $num)
     {
+        User::checkAuthorByRecId($id);
+
+
         $recipe = \app\models\Recipe::findOne((int)$id);
         if (!$recipe) $this->goHome();
         $imagePath = \Yii::getAlias('@app').DS.'media'.DS.(int)$id.DS.(int)$num . '.jpg';

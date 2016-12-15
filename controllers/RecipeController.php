@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Likes;
+use app\models\SavedRecipe;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use app\models\Recipe;
 use yii\helpers\Url;
@@ -30,11 +33,45 @@ class RecipeController extends \yii\web\Controller
         if (!$alias) $this->goHome();
         $recipe = Recipe::findOne((int)$alias);
 
-        if (!$recipe || $alias !== $recipe->alias) $this->goHome();
+        if (!$recipe || $alias !== $recipe->alias || !in_array($recipe->status, Recipe::getActiveStatuses()))
+            $this->goHome();
 
+        //breadcrumbs
+        $breadcrumbs = [];
+
+        $cat = $recipe->getSection()->one();
+        if (!empty($cat)) {
+            $parentLink = [
+                'label' => $cat->name,
+                'url' => Url::to(['search/category', 'alias' => $cat->alias]),
+            ];
+            array_push($breadcrumbs, $parentLink);
+        }
+        $catP = $cat->getParent()->one();
+        if (!empty($catP)) {
+            $parentLink = [
+                'label' => $catP->name,
+                'url' => Url::to(['search/category', 'alias' => $catP->alias]),
+            ];
+            array_push($breadcrumbs, $parentLink);
+        }
+        array_push($breadcrumbs, $recipe->name);
+
+        $liked = $saved = false;
+        if (!\Yii::$app->user->isGuest) {
+            $alreadySaved = SavedRecipe::find()->where(['recipe_id' => $recipe->id, 'user_id' => \Yii::$app->user->identity->id])->one();
+            if (!empty($alreadySaved)) $saved = true;
+
+            $alreadyLiked = Likes::find()->where(['recipe_id' => $recipe->id, 'user_id' => \Yii::$app->user->identity->id])->one();
+            if (!empty($alreadyLiked)) $liked = true;
+        }
 
         return $this->render('show',[
             'recipe' => $recipe,
+            'breadcrumbs' => $breadcrumbs,
+            'liked' => $liked,
+            'saved' => $saved,
+            'category' => $cat->name,
         ]);
     }
 
@@ -44,7 +81,7 @@ class RecipeController extends \yii\web\Controller
         $recipe = Recipe::findOne((int)$alias);
         if (!$recipe
             || ($recipe->author != \Yii::$app->user->id)
-            || \Yii::$app->user->identity->is_moderator != 1
+            || \Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE
         ) $this->goHome();
 
         $instructions = $recipe->getInstructions()->asArray()->all();

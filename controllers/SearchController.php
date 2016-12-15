@@ -9,6 +9,14 @@ use \yii\helpers\Url;
 
 class SearchController extends \yii\web\Controller
 {
+    public function actionSearch($s)
+    {
+
+        return $this->render('search', [
+            's' => $s,
+        ]);
+    }
+
     public function actionIndex()
     {
         $recipes = Recipe::find()->where(['status' => Recipe::getActiveStatuses()])->orderBy('reputation DESC');
@@ -62,10 +70,8 @@ class SearchController extends \yii\web\Controller
         $children = [];
         $childs = $category->getChilds()->all();
         if (!empty($childs)) $children = $childs;
-    
 
-
-        $recipes = $category->getRecipes()->where(['status' => Recipe::getActiveStatuses()])
+        $recipes = Recipe::find()->where(['section' => $category->getChilds()->column(),'status' => Recipe::getActiveStatuses()])
             ->orderBy('reputation DESC');
 
         if(!$recipes) $this->goHome();

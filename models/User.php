@@ -59,6 +59,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
+    public static function checkAuthorByRecId($id)
+    {
+        $recipe = Recipe::findOne((int)$id);
+        if (\Yii::$app->user->isGuest || \Yii::$app->user->identity->id != $recipe->author)
+            die();
+    }
+
     /**
      * @inheritdoc
      */
