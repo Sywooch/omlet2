@@ -143,7 +143,6 @@ use \yii\helpers\Url;
                             <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'user-profile']) ?>
                             <table class="table table-striped">
                                 <?php
-                                //todo тут доделать
                                 $template = '<tr><td>{label}</td><td>{input}</td></tr>';
                                 echo $form->field($user, 'username',['template' => $template]);
                                 echo $form->field($user, 'birthday_date',['template' => $template])->input('date');

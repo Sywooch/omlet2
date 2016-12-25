@@ -8,6 +8,15 @@ use yii\web\Controller;
 
 class SiteController extends Controller
 {
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     /**
      * Displays homepage.
      *
@@ -18,12 +27,12 @@ class SiteController extends Controller
         $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->all();
 
         return $this->render('index', [
-            'imageUrl' => $this->getLandingImageUrl(),
+            'imageUrl' => self::getLandingImageUrl(),
             'mainCats' => $mainCats,
         ]);
     }
 
-    public function getLandingImageUrl()
+    public static function getLandingImageUrl()
     {
         $imgPath = \Yii::getAlias('@app') . DS .  'web' . DS .'img'.DS. 'landing' . DS . '*';
         $images = array_map(function($img){return end(explode(DS, $img));}, glob($imgPath));

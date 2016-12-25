@@ -27,7 +27,7 @@ $this->title = 'Omlet - Поиск рецептов';
                </div>
            </div>
            <div class="col-md-6 col-xs-12">
-               <img src="<?= $imageUrl ?>" title="" alt="" />
+               <img src="<?= $imageUrl ?>" title="лучшие рецепты на <?= FULL_HOST ?>" alt="лучшие рецепты на <?= FULL_HOST ?>" />
            </div>
        </div>
     </div>

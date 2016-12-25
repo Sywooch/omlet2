@@ -30,7 +30,8 @@ class RecipeController extends \yii\web\Controller
         if (!$alias) $this->goHome();
         $recipe = Recipe::findOne((int)$alias);
 
-        if (!$recipe || $alias !== $recipe->alias) $this->goHome();
+        if (!$recipe || $alias !== $recipe->alias)
+            $this->goHome();
 
 
         return $this->render('show',[

@@ -51,6 +51,7 @@ $config = [
                 'add' => 'recipe/add',
                 'edit/<alias>' => 'recipe/edit',
                 'recipe/<alias>' => 'recipe/show',
+                'cook/<email>' => 'cabinet/profile',
                 '<controller>/<action>' => '<controller>/<action>',
 
             ],

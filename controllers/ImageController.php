@@ -7,7 +7,6 @@ use Imagine\Image\Box;
 
 class ImageController extends \yii\web\Controller
 {
-    const IMAGE_TEXT = ' omlet.kiev.ua';
 
     public function actionAvatar($id)
     {
@@ -16,7 +15,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
 
         exit();
     }
@@ -29,7 +28,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
 
         exit();
     }
@@ -42,7 +41,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
 
 
         exit();
@@ -55,7 +54,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $image->adaptive_resize(190, 160);
-        $image->text(self::IMAGE_TEXT, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", 30, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", 30, '#e7e516', 'bottom left' )->output();
 
         exit();
     }
