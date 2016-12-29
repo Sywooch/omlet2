@@ -7,6 +7,7 @@
 
 namespace yii\web;
 
+use app\controllers\SiteController;
 use Yii;
 use yii\base\Action;
 use yii\base\Exception;
@@ -106,7 +107,9 @@ class ErrorAction extends Action
                 'name' => $name,
                 'message' => $message,
                 'exception' => $exception,
+                'imageUrl' => SiteController::getLandingImageUrl(),
             ]);
         }
     }
+
 }

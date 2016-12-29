@@ -1,6 +1,6 @@
 <?php
 
-if (IS_LOCAL) {
+if (IS_DEV) {
     return [
         'class' => 'yii\db\Connection',
         'dsn' => 'mysql:host=localhost;dbname=omlet2',

@@ -75,7 +75,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             //'id' => 'ID',
             'email' => 'Email',
             'password' => 'Password',
-            'username' => 'Username',
+            'username' => 'Ім\'я',
             'status' => 'Status',
             'is_moderator' => 'Is Moderator',
             'registration_date' => 'Дата реєстрації',

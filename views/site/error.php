@@ -5,21 +5,24 @@
 /* @var $message string */
 /* @var $exception Exception */
 
-use yii\helpers\Html;
-
-$this->title = $name;
+$this->title = 'Такої сторінки не знайдено...';
 ?>
 <div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
-
-    <p>
-        TERROR PAGE
-    </p>
-
+    <?php
+    if (!IS_DEV) { ?>
+        <div class="col-xs-12 col-md-6">
+            <h1>Такої сторінки не знайдено...</h1>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <img src="<?= $imageUrl ?>" title="лучшие рецепты на <?= HOST ?>" alt="лучшие рецепты на <?= HOST ?>" />
+        </div>
+    <?php } else { ?>
+        <pre>
+            <?php
+            var_dump($exception);
+            ?>
+        </pre>
+    <?php } ?>
 
 </div>

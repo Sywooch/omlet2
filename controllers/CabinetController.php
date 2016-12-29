@@ -27,6 +27,26 @@ class CabinetController extends \yii\web\Controller
             ],
         ];
     }
+
+    public function actionProfile($email)
+    {
+        $cook = User::find()->where(['email' => $email])->one();
+        if (empty($cook)) $this->goHome();
+
+        $recipesProvider = new ActiveDataProvider([
+                'query' => $cook->getRecipes(),
+                'pagination'=>['pageSize'=>12]
+            ]
+        );
+
+        return $this->render('profile',[
+            'cook' => $cook,
+            'recipesProvider' => $recipesProvider,
+        ]);
+    }
+
+
+    //todo-in тут ето должно быть?
     public function actionStatus($id,$status)
     {
         if (!$id || !$status) $this->goHome();
