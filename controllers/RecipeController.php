@@ -36,6 +36,35 @@ class RecipeController extends \yii\web\Controller
         if (!$recipe || $alias !== $recipe->alias || !in_array($recipe->status, Recipe::getActiveStatuses()))
             $this->goHome();
 
+        //breadcrumbs
+        $breadcrumbs = [];
+
+        $cat = $recipe->getSection()->one();
+        if (!empty($cat)) {
+            $parentLink = [
+                'label' => $cat->name,
+                'url' => Url::to(['search/category', 'alias' => $cat->alias]),
+            ];
+            array_push($breadcrumbs, $parentLink);
+        }
+        $catP = $cat->getParent()->one();
+        if (!empty($catP)) {
+            $parentLink = [
+                'label' => $catP->name,
+                'url' => Url::to(['search/category', 'alias' => $catP->alias]),
+            ];
+            array_push($breadcrumbs, $parentLink);
+        }
+        array_push($breadcrumbs, $recipe->name);
+
+        $liked = $saved = false;
+        if (!\Yii::$app->user->isGuest) {
+            $alreadySaved = SavedRecipe::find()->where(['recipe_id' => $recipe->id, 'user_id' => \Yii::$app->user->identity->id])->one();
+            if (!empty($alreadySaved)) $saved = true;
+
+            $alreadyLiked = Likes::find()->where(['recipe_id' => $recipe->id, 'user_id' => \Yii::$app->user->identity->id])->one();
+            if (!empty($alreadyLiked)) $liked = true;
+        }
 
         return $this->render('show',[
             'recipe' => $recipe,
