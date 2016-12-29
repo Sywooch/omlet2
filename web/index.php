@@ -4,8 +4,10 @@ if (in_array($_SERVER['HTTP_HOST'], ['omlet2', 'omlet.dev'])) {
     define('IS_DEV', true);
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
+    define('MAINTENANCE_MODE', true);
 } else {
     define('IS_DEV', false);
+    define('MAINTENANCE_MODE', true);
 }
 
 define('DS', DIRECTORY_SEPARATOR);

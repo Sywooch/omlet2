@@ -52,4 +52,11 @@ class SiteController extends Controller
         return '/web/img/landing/' . $images[array_rand($images)];
     }
 
+    public function actionMaintenance()
+    {
+        return $this->render('maintenance', [
+            'imageUrl' => self::getLandingImageUrl(),
+        ]);
+    }
+
 }
