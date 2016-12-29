@@ -17,12 +17,19 @@ $this->title = 'Такої сторінки не знайдено...';
         <div class="col-xs-12 col-md-6">
             <img src="<?= $imageUrl ?>" title="лучшие рецепты на <?= HOST ?>" alt="лучшие рецепты на <?= HOST ?>" />
         </div>
+    <?php } elseif (empty($exception))  { ?>
+        <div class="col-xs-12 col-md-6">
+            <h1>Такої сторінки не знайдено...</h1>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <img src="<?= $imageUrl ?>" title="лучшие рецепты на <?= HOST ?>" alt="лучшие рецепты на <?= HOST ?>" />
+        </div>
     <?php } else { ?>
         <pre>
             <?php
             var_dump($exception);
             ?>
         </pre>
-    <?php } ?>
+    <?php } ?> ?>
 
 </div>

@@ -31,7 +31,7 @@ class CabinetController extends \yii\web\Controller
     public function actionProfile($email)
     {
         $cook = User::find()->where(['email' => $email])->one();
-        if (empty($cook)) $this->goHome();
+        if (empty($cook)) return $this->show404();
 
         $recipesProvider = new ActiveDataProvider([
                 'query' => $cook->getRecipes(),
@@ -49,12 +49,12 @@ class CabinetController extends \yii\web\Controller
     //todo-in тут ето должно быть?
     public function actionStatus($id,$status)
     {
-        if (!$id || !$status) $this->goHome();
+        if (!$id || !$status) return $this->show404();
         $recipe = Recipe::findOne((int)$id);
         if (!$recipe
             || ($recipe->author != \Yii::$app->user->id)
             || \Yii::$app->user->identity->is_moderator === \app\models\User::ADMIN_ROLE
-        ) $this->goHome();
+        ) return $this->show404();
 
         switch ($status) {
             case Recipe::STATUS_SCRATCH:
@@ -68,10 +68,10 @@ class CabinetController extends \yii\web\Controller
                 break;
             case Recipe::STATUS_APPROVED:
                 if (\Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE)
-                    $this->goHome();
+                    return $this->show404();
                 $recipe->status = Recipe::STATUS_APPROVED;
                 break;
-            default:$this->goHome();
+            default:return $this->show404();
         }
         $recipe->save();
 
@@ -126,9 +126,9 @@ class CabinetController extends \yii\web\Controller
 
     public function actionDelete($id)
     {
-        if (!$id) $this->goHome();
+        if (!$id) return $this->show404();
         $recipe = Recipe::findOne((int)$id);
-        if (!$recipe || ($recipe->author != \Yii::$app->user->id)) $this->goHome();
+        if (!$recipe || ($recipe->author != \Yii::$app->user->id)) return $this->show404();
 
         $recipe->status = Recipe::STATUS_USER_DELETED;
         $recipe->save();

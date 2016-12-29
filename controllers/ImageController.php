@@ -13,7 +13,7 @@ class ImageController extends \yii\web\Controller
     public function actionAvatar($id)
     {
         if (\Yii::$app->user->isGuest || \Yii::$app->user->identity->id != $id)
-            return $this->goHome();
+            return $this->show404();
 
         $filePath = \Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.(int)$id.'.jpg';
         if (!file_exists($filePath)) exit();
@@ -65,7 +65,7 @@ class ImageController extends \yii\web\Controller
     public function actionEdit($id, $num)
     {
         $recipe = \app\models\Recipe::findOne((int)$id);
-        if (!$recipe) $this->goHome();
+        if (!$recipe) return $this->show404();
         $stepPhotoModel = new \app\models\UploadStepPhoto();
 
         return $this->render('edit', [
@@ -82,7 +82,7 @@ class ImageController extends \yii\web\Controller
 
 
         $recipe = \app\models\Recipe::findOne((int)$id);
-        if (!$recipe) $this->goHome();
+        if (!$recipe) return $this->show404();
         $imagePath = \Yii::getAlias('@app').DS.'media'.DS.(int)$id.DS.(int)$num . '.jpg';
         if (file_exists($imagePath)) unlink($imagePath);
         $this->redirect(\yii\helpers\Url::to(['recipe/edit', 'alias' => $recipe->alias]));

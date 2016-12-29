@@ -30,11 +30,11 @@ class RecipeController extends \yii\web\Controller
 
     public function actionShow($alias)
     {
-        if (!$alias) $this->goHome();
+        if (!$alias) return $this->show404();
         $recipe = Recipe::findOne((int)$alias);
 
         if (!$recipe || $alias !== $recipe->alias || !in_array($recipe->status, Recipe::getActiveStatuses()))
-            $this->goHome();
+            return $this->show404();
 
         //breadcrumbs
         $breadcrumbs = [];
@@ -77,12 +77,12 @@ class RecipeController extends \yii\web\Controller
 
     public function actionEdit($alias)
     {
-        if (!$alias) $this->goHome();
+        if (!$alias) return $this->show404();
         $recipe = Recipe::findOne((int)$alias);
         if (!$recipe
             || ($recipe->author != \Yii::$app->user->id)
             || \Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE
-        ) $this->goHome();
+        ) return $this->show404();
 
         $instructions = $recipe->getInstructions()->asArray()->all();
         $ingridients = $recipe->getIngridients()->asArray()->all();

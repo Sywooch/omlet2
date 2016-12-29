@@ -7,6 +7,7 @@
 
 namespace yii\web;
 
+use app\controllers\SiteController;
 use Yii;
 use yii\base\InlineAction;
 use yii\helpers\Url;
@@ -205,4 +206,14 @@ class Controller extends \yii\base\Controller
     {
         return Yii::$app->getResponse()->redirect(Yii::$app->getRequest()->getUrl() . $anchor);
     }
+
+    public function show404()
+    {
+        \Yii::$app->response->setStatusCode(404);
+
+        return $this->render('..' . DS . 'site' . DS . 'error', [
+            'imageUrl' => SiteController::getLandingImageUrl(),
+        ]);
+    }
+
 }

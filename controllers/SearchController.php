@@ -47,7 +47,7 @@ class SearchController extends \yii\web\Controller
     {
         $category = RecipeSection::find()->where(['alias' => $alias])->one();
         if (empty($category) || $alias !== $category->alias)
-            return $this->goHome();
+            return $this->show404();
 
         //breadcrumbs
         $breadcrumbs = [];
