@@ -48,7 +48,12 @@ class SiteController extends Controller
     {
         $imgPath = \Yii::getAlias('@app') . DS .  'web' . DS .'img'.DS. 'landing' . DS . '*';
         $imagePathes = glob($imgPath);
-        $images = array_map(function($img){return end(explode(DS, $img));}, $imagePathes);
+
+        $images = [];
+        foreach ($imagePathes as $path) {
+            $pathBlocks = explode(DS, $path);
+            $images[] = end($pathBlocks);
+        }
 
         return '/web/img/landing/' . $images[array_rand($images)];
     }
