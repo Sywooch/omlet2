@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
-    'catchAll' => ['site/maintenance'],
+    'catchAll' => MAINTENANCE_MODE ? ['site/maintenance'] : null,
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
