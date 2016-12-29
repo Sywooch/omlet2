@@ -59,7 +59,12 @@ echo \yii\widgets\Breadcrumbs::widget([
                             </table>
                         </div>
                         <div class="col-xs-12 col-md-3">
-                            <p class="author-desc">Від автора:</p>
+                            <p class="author-desc">
+                                <a itemprop="author"
+                                   href="<?= Url::to(['cabinet/profile', 'email' => $recipe->getAuthor()->one()->email]) ?>">
+                                    Від автора:
+                                </a>
+                            </p>
                             <p itemprop="description"><?= $recipe->description ?></p>
                         </div>
                     </div>

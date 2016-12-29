@@ -149,4 +149,9 @@ class Recipe extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RecipeSection::className(), ['id' => 'section']);
     }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'author']);
+    }
 }

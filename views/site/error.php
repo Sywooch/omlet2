@@ -30,6 +30,6 @@ $this->title = 'Такої сторінки не знайдено...';
             var_dump($exception);
             ?>
         </pre>
-    <?php } ?> ?>
+    <?php } ?>
 
 </div>

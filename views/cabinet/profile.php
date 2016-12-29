@@ -38,13 +38,13 @@ use \yii\helpers\Url;
     </div>
 </div>
 <div class="row">
-    <h1>Рецепти від шефа:</h1>
+    <h1>Рецепти від шефа <?= $cook->username ?>:</h1>
 </div>
 <div class="row">
     <?php
     echo \yii\widgets\ListView::widget([
         'dataProvider' => $recipesProvider,
-        'itemView' => DS . '..' . DS . 'search' . DS . '_recipe',
+        'itemView' => '..' . DS . 'search' . DS . '_recipe',
         'summary' => '{count} з {totalCount} рецептів'
     ]);
 

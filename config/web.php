@@ -8,6 +8,12 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'settings' => [
+            'class' => 'yii\Settings',
+            // optional configuration:
+            'db' => 'db', // DB Component ID
+            'preLoad' => ['general']
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'olJb-i3sNykbzJ-X-VMhQ-vp3anWfAfyjpX',
