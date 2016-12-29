@@ -47,7 +47,8 @@ class SiteController extends Controller
     public static function getLandingImageUrl()
     {
         $imgPath = \Yii::getAlias('@app') . DS .  'web' . DS .'img'.DS. 'landing' . DS . '*';
-        $images = array_map(function($img){return end(explode(DS, $img));}, glob($imgPath));
+        $imagePathes = glob($imgPath);
+        $images = array_map(function($img){return end(explode(DS, $img));}, $imagePathes);
 
         return '/web/img/landing/' . $images[array_rand($images)];
     }
