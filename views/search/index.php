@@ -17,6 +17,7 @@ echo \yii\widgets\Breadcrumbs::widget([
 
 //images for main categories
 if (!empty($mainCats)) { ?>
+    <br>
     <div class="row">
         <?php
         foreach ($mainCats as $cat) { ?>

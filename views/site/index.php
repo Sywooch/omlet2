@@ -39,10 +39,10 @@ $this->title = 'Omlet - Поиск рецептов';
     </div>
     <div class="body-content">
         <div class="row">
-            <p>Найпопулярніші рецепти:</p>
+            <p class="h1">Найпопулярніші рецепти:</p>
         </div>
         <div class="row">
-            <?=\yii\widgets\ListView::widget([
+            <?= \yii\widgets\ListView::widget([
                 'dataProvider' => $recipesProvider,
                 'itemView' => '..'.DS.'search'.DS.'_recipe',
                 'summary' => ''

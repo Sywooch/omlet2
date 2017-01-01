@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Ingridient;
+use app\models\Instruction;
 use app\models\Recipe;
 use app\models\RecipeSection;
 use yii\data\ActiveDataProvider;
@@ -11,9 +13,30 @@ class SearchController extends \yii\web\Controller
 {
     public function actionSearch($s)
     {
+        //search in name
+        $byName = Recipe::find()->where(['like', 'name', $s]);
+
+        //search in ingridients
+        $byIngridient = Recipe::find()->where([
+            'id' => Ingridient::find()->where(['like', 'name', $s])->select('recipe_id')->distinct()->column()
+        ]);
+
+        //search in desc
+        $byMainDesc = Recipe::find()->where(['like', 'description', $s])->select('id')->distinct()->column();
+        $byInstructionDesc = Instruction::find()->where(['like', 'instruction', $s])->select('recipe_id')->distinct()->column();
+        $byDesc = Recipe::find()->where(['id' => array_merge($byMainDesc, $byInstructionDesc)]);
+
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'robots',
+            'content' => 'noindex,nofollow'
+        ]);
 
         return $this->render('search', [
             's' => $s,
+            'byName' => $byName,
+            'byIngridient' => $byIngridient,
+            'byDesc' => $byDesc,
+
         ]);
     }
 
