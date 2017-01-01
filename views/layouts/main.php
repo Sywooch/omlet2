@@ -55,9 +55,24 @@ AppAsset::register($this);
                 <ul class="nav navbar-nav navbar-right">
                     <?php
                     if (!Yii::$app->user->isGuest && Yii::$app->user->identity->is_moderator === \app\models\User::ADMIN_ROLE) { ?>
-                        <li><a href="<?=Url::to(['search/index'])?>">Рецепти</a></li>
-                        <li><a href="<?=Url::to(['category/index'])?>">Категорії</a></li>
-                        <li><a href="<?=Url::to(['admin/index'])?>">Настройки</a></li>
+                        <li>
+                            <a href="<?=Url::to(['moderating/index'])?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                Рецепти
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=Url::to(['category/index'])?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                Категорії
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?=Url::to(['admin/index'])?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                Настройки
+                            </a>
+                        </li>
                     <?php } ?>
                     <li><a href="<?=Url::to(['search/index'])?>">Рецепти</a></li>
                     <li><a href="<?=Url::to(['recipe/add'])?>"><span class="glyphicon glyphicon-plus"  aria-hidden="true"></span> Додати рецепт</a></li>

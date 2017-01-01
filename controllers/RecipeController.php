@@ -36,6 +36,9 @@ class RecipeController extends \yii\web\Controller
         if (!$recipe || $alias !== $recipe->alias || !in_array($recipe->status, Recipe::getActiveStatuses()))
             return $this->show404();
 
+        $recipe->views++;
+        $recipe->last_view_date = date('Y-m-d', time());
+        $recipe->save();
         //breadcrumbs
         $breadcrumbs = [];
 
