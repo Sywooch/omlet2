@@ -16,7 +16,7 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $username
  * @property integer $status
- * @property integer $is_moderator
+ * @property integer $role
  * @property string $registration_date
  * @property string $last_active_date
  * @property integer $avatar_status
@@ -50,8 +50,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password', 'username', 'status', 'is_moderator', 'registration_date', 'last_active_date', 'avatar_status'], 'required'],
-            [['status', 'is_moderator', 'avatar_status'], 'integer'],
+            [['email', 'password', 'username', 'status', 'role', 'registration_date', 'last_active_date', 'avatar_status'], 'required'],
+            [['status', 'role', 'avatar_status'], 'integer'],
             [['registration_date', 'last_active_date', 'birthday_date'], 'safe'],
             [['email', 'username'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 150],
@@ -77,7 +77,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'password' => 'Password',
             'username' => 'Ім\'я',
             'status' => 'Status',
-            'is_moderator' => 'Is Moderator',
+            'role' => 'Role',
             'registration_date' => 'Дата реєстрації',
             'last_active_date' => 'Last Active Date',
             'avatar_status' => 'Avatar Status',
@@ -107,7 +107,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             throw new Exception('user with this email already exists!');
         }
         $this->status = self::STATUS_ACTIVE;
-        $this->is_moderator = self::USER_ROLE;
+        $this->role = self::USER_ROLE;
         $this->registration_date = date('Y-m-d', time());
         $this->last_active_date = date('Y-m-d', time());
         $this->avatar_status = self::AVATAR_ABSENT;

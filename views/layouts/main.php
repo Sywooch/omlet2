@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use \app\models\Recipe;
 
 AppAsset::register($this);
 ?>
@@ -54,11 +55,15 @@ AppAsset::register($this);
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <?php
-                    if (!Yii::$app->user->isGuest && Yii::$app->user->identity->is_moderator === \app\models\User::ADMIN_ROLE) { ?>
+                    if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role === \app\models\User::ADMIN_ROLE) { ?>
                         <li>
-                            <a href="<?=Url::to(['moderating/index'])?>">
+                            <a <?= Recipe::find()->where(['status' => [
+                                Recipe::STATUS_MODIFIED,
+                                Recipe::STATUS_PUBLISHED
+                            ]])->count() > 0 ? 'style="color: #ff4c4c; font-weight: 800"' : '' ?>
+                                href="<?=Url::to(['moderating/index'])?>">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                Рецепти
+                                <span >Все рецепти</span>
                             </a>
                         </li>
                         <li>

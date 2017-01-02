@@ -16,7 +16,7 @@ class AdminController extends \yii\web\Controller
 
     public function beforeAction($action)
     {
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE)
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role !== \app\models\User::ADMIN_ROLE)
             return $this->goHome();
 
         return parent::beforeAction($action);

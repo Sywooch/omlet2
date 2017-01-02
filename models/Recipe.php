@@ -26,7 +26,6 @@ use Yii;
  * @property Instruction[] $instructions
  * @property SavedRecipe[] $savedRecipes
  * @property User[] $users
- * @property Tags[] $tags
  */
 class Recipe extends \yii\db\ActiveRecord
 {
@@ -46,6 +45,21 @@ class Recipe extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getAdminStatusTranslate($status)
+    {
+        $translate = [
+            self::STATUS_SCRATCH => 'Чернетка',
+            self::STATUS_PUBLISHED => 'Опублікований',
+            self::STATUS_APPROVED => 'Затвердженний',
+            self::STATUS_MODIFIED => 'Оновлений',
+            self::STATUS_USER_DELETED => 'Видалений юзером',
+        ];
+
+        if (empty($translate[$status])) return '';
+
+        return $translate[$status];
+    }
+
 
     public static function getStatusTranslate($status)
     {
@@ -55,7 +69,9 @@ class Recipe extends \yii\db\ActiveRecord
             self::STATUS_APPROVED => 'Опублікований',
             self::STATUS_MODIFIED => 'Опублікований',
         ];
+
         if (empty($translate[$status])) return '';
+
         return $translate[$status];
     }
 

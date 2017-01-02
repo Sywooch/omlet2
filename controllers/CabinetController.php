@@ -53,7 +53,7 @@ class CabinetController extends \yii\web\Controller
         $recipe = Recipe::findOne((int)$id);
         if (!$recipe
             || ($recipe->author != \Yii::$app->user->id)
-            || \Yii::$app->user->identity->is_moderator === \app\models\User::ADMIN_ROLE
+            || \Yii::$app->user->identity->role === \app\models\User::ADMIN_ROLE
         ) return $this->show404();
 
         switch ($status) {
@@ -67,7 +67,7 @@ class CabinetController extends \yii\web\Controller
                 $recipe->status = Recipe::STATUS_MODIFIED;
                 break;
             case Recipe::STATUS_APPROVED:
-                if (\Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE)
+                if (\Yii::$app->user->identity->role !== \app\models\User::ADMIN_ROLE)
                     return $this->show404();
                 $recipe->status = Recipe::STATUS_APPROVED;
                 break;

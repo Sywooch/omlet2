@@ -82,10 +82,13 @@ class RecipeController extends \yii\web\Controller
     {
         if (!$alias) return $this->show404();
         $recipe = Recipe::findOne((int)$alias);
+
         if (!$recipe
             || ($recipe->author != \Yii::$app->user->id)
-            || \Yii::$app->user->identity->is_moderator !== \app\models\User::ADMIN_ROLE
-        ) return $this->show404();
+        ) {
+            if (\Yii::$app->user->identity->role !== \app\models\User::ADMIN_ROLE)
+                return $this->show404();
+        }
 
         $instructions = $recipe->getInstructions()->asArray()->all();
         $ingridients = $recipe->getIngridients()->asArray()->all();

@@ -3,18 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\RecipeSection;
+use app\models\Recipe;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryController implements the CRUD actions for RecipeSection model.
+ * ModeratingController implements the CRUD actions for Recipe model.
  */
-class CategoryController extends Controller
+class ModeratingController extends Controller
 {
-
     public function beforeAction($action)
     {
         if (Yii::$app->user->isGuest || Yii::$app->user->identity->role !== \app\models\User::ADMIN_ROLE)
@@ -39,13 +38,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all RecipeSection models.
+     * Lists all Recipe models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => RecipeSection::find(),
+            'query' => Recipe::find(),
         ]);
 
         return $this->render('index', [
@@ -54,39 +53,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a single RecipeSection model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new RecipeSection model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new RecipeSection();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing RecipeSection model.
+     * Updates an existing Recipe model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -94,7 +63,7 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -103,28 +72,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * Deletes an existing RecipeSection model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the RecipeSection model based on its primary key value.
+     * Finds the Recipe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return RecipeSection the loaded model
+     * @param string $id
+     * @return Recipe the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RecipeSection::findOne($id)) !== null) {
+        if (($model = Recipe::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
