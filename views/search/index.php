@@ -3,6 +3,8 @@
 /* @var $this yii\web\View */
 use \yii\helpers\Url;
 
+$this->title = !empty($category->h1) ? $category->h1 : \Yii::$app->settings->get('seo', 'categoryPage-title');
+
 $homeLink = [
     'label' => 'Головна',
     'url' => '/',
@@ -52,7 +54,7 @@ if (!empty($children)) { ?>
         </div>
     </div>
 <?php } ?>
-
+<h1><?= 1 ?></h1>
 <div class="recipes">
     <?=\yii\widgets\ListView::widget([
         'dataProvider' => $recipesProvider,

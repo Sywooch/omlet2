@@ -4,7 +4,7 @@ use \yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Omlet - Поиск рецептов';
+$this->title = \Yii::$app->settings->get('seo', 'mainPage-title', 'Omlet - Поиск рецептов');
 ?>
 <div class="site-index">
     <div class="jumbotron">
@@ -50,7 +50,9 @@ $this->title = 'Omlet - Поиск рецептов';
         </div>
         <div class="row">
             <div class="col-xs-12">
-                seo-text
+                <p class="seo-text">
+                    <?= \Yii::$app->settings->get('seo', 'mainPage-h1') ?>
+                </p>
             </div>
         </div>
     </div>

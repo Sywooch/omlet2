@@ -14,6 +14,7 @@ use yii\helpers\Url;
  * @property string $h1
  * @property string $title
  * @property string $description
+ * @property string $seo_text
  * @property string $parent_id
  */
 class RecipeSection extends \yii\db\ActiveRecord
@@ -44,7 +45,7 @@ class RecipeSection extends \yii\db\ActiveRecord
             [['name', 'parent_id'], 'required'],
             [['parent_id'], 'integer'],
             [['name','alias'], 'string', 'max' => 100],
-            [['title','h1', 'description'], 'string', 'max' => 10000]
+            [['title','h1', 'description', 'seo_text'], 'string', 'max' => 10000]
         ];
     }
 
@@ -59,6 +60,7 @@ class RecipeSection extends \yii\db\ActiveRecord
             'h1' => 'H1',
             'title'=> 'Title',
             'description' => 'Description',
+            'seo_text' => 'SEO text',
             'parent_id' => 'Parent ID',
         ];
     }

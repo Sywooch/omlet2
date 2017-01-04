@@ -50,7 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($author->username, Url::to(['cabinet/profile', 'email' => $author->email]));
                 }
             ],
-            'likes',
+            [
+                'attribute'=>'likes',
+                'label' => 'Likes',
+                'content'=>function($data){
+                    return $data->getLikes()->count();
+                }
+            ],
             'views',
             'last_view_date',
 

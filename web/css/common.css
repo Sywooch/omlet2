@@ -267,3 +267,8 @@ a.desc:after {
     text-decoration: underline;
     font-size: 24px;
 }
+.h1 {text-align: center}
+.seo-text{
+    font-size: 22px;
+    font-weight: 500;
+}

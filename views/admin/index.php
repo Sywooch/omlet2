@@ -1,11 +1,35 @@
 <?php
-use yii\SettingsForm;
+
+use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Settings';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row">
-    <?=  SettingsForm::widget([
-        'object' => $this
-    ]);?>
+<div class="setting-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Setting', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'category',
+            'key',
+            'value:ntext',
+            'created_at',
+            'updated_at',
+            // 'created_by',
+            // 'updated_by',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 </div>

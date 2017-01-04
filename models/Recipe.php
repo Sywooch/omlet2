@@ -153,9 +153,9 @@ class Recipe extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTags()
+    public function getLikes()
     {
-        return $this->hasMany(Tags::className(), ['recipe_id' => 'id']);
+        return $this->hasMany(Likes::className(), ['recipe_id' => 'id']);
     }
 
     /**

@@ -59,6 +59,11 @@ class SearchController extends \yii\web\Controller
             ]
         );
 
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'robots',
+            'content' => 'noindex,follow'
+        ]);
+
         return $this->render('index', [
             'recipesProvider' => $recipesProvider,
             'breadcrumbs' => $breadcrumbs,
@@ -105,10 +110,19 @@ class SearchController extends \yii\web\Controller
                 'pagination'=>['pageSize'=>12]
             ]
         );
+
+        $description = !empty($category->description) ?
+            $category->description : \Yii::$app->settings->get('seo', 'categoryPage-description');
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $description,
+        ]);
+
         return $this->render('index', [
             'recipesProvider' => $recipesProvider,
             'breadcrumbs' => $breadcrumbs,
             'children' => $children,
+            'category' => $category,
         ]);
     }
 

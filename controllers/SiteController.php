@@ -37,6 +37,11 @@ class SiteController extends Controller
 
         $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->all();
 
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => \Yii::$app->settings->get('seo', 'mainPage-description', 'Omlet - Поиск рецептов')
+        ]);
+
         return $this->render('index', [
             'imageUrl' => self::getLandingImageUrl(),
             'mainCats' => $mainCats,
