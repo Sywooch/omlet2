@@ -69,6 +69,11 @@ class RecipeController extends \yii\web\Controller
             if (!empty($alreadyLiked)) $liked = true;
         }
 
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $recipe->name . \Yii::$app->settings->get('seo', 'recipeDescription')
+        ]);
+
         return $this->render('show',[
             'recipe' => $recipe,
             'breadcrumbs' => $breadcrumbs,
@@ -132,6 +137,12 @@ class RecipeController extends \yii\web\Controller
                 throw new Exeption('smth wrong with recipe save');
             }
         }
+
+        \Yii::$app->view->registerMetaTag([
+            'name' => 'robots',
+            'content' => 'noindex,nofollow'
+        ]);
+
         return $this->render('add', [
             'sections' => \app\models\RecipeSection::getAllSections(),
         ]);

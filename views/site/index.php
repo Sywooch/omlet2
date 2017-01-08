@@ -50,8 +50,11 @@ $this->title = \Yii::$app->settings->get('seo', 'mainPage-title', 'Omlet - По�
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <p class="seo-text">
+                <h1 class="seo-text">
                     <?= \Yii::$app->settings->get('seo', 'mainPage-h1') ?>
+                </h1>
+                <p class="seo-text">
+                    <?= \Yii::$app->settings->get('seo', 'mainPage-text') ?>
                 </p>
             </div>
         </div>

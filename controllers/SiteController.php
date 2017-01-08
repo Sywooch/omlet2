@@ -32,7 +32,10 @@ class SiteController extends Controller
 
         $recipesProvider = new ActiveDataProvider([
             'query' => $recipes,
-            'pagination'=>['pageSize'=>6]
+            'totalCount' => 6,
+            'pagination'=>[
+                'pageSize'=>6,
+            ],
         ]);
 
         $mainCats = RecipeSection::find()->where(['parent_id' => '0'])->all();
@@ -68,6 +71,12 @@ class SiteController extends Controller
         return $this->render('maintenance', [
             'imageUrl' => self::getLandingImageUrl(),
         ]);
+    }
+
+    public function actionSitemap()
+    {
+        //todo-in finish this
+        echo 'tut budet sitemap';
     }
 
 }

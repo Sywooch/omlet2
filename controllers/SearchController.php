@@ -55,25 +55,26 @@ class SearchController extends \yii\web\Controller
 
         $recipesProvider = new ActiveDataProvider([
                 'query' => $recipes,
-                'pagination'=>['pageSize'=>12]
+                'pagination'=>['pageSize'=>\Yii::$app->settings->get('general', 'pageSize', 12)]
             ]
         );
 
         \Yii::$app->view->registerMetaTag([
-            'name' => 'robots',
-            'content' => 'noindex,follow'
+            'name' => 'description',
+            'content' => \Yii::$app->settings->get('seo', 'mainCategoryPage-description')
         ]);
 
         return $this->render('index', [
             'recipesProvider' => $recipesProvider,
             'breadcrumbs' => $breadcrumbs,
             'mainCats' => $mainCats,
+            'showSeoTextCondition' => true
         ]);
     }
 
     public function actionCategory($alias)
     {
-        $category = RecipeSection::find()->where(['alias' => $alias])->one();
+        $category = RecipeSection::find()->where('alias=:alias', ['alias' => $alias])->one();
         if (empty($category) || $alias !== $category->alias)
             return $this->show404();
 
@@ -96,23 +97,26 @@ class SearchController extends \yii\web\Controller
 
         //берем категории 2го уровня
         $children = [];
-        $childs = $category->getChilds()->all();
+        $childs = $category->getChilds()->where([
+            'id' => Recipe::find()->where(['status' => Recipe::getActiveStatuses()])->select('section')->distinct()->column()
+        ])->all();
         if (!empty($childs)) $children = $childs;
 
-        $recipes = Recipe::find()->where(['section' => $category->getChilds()->column(),'status' => Recipe::getActiveStatuses()])
+        $recipes = Recipe::find()->where([
+            'section' => array_merge($category->getChilds()->column(), array($category->id)),
+            'status' => Recipe::getActiveStatuses()
+        ])
             ->orderBy('reputation DESC');
-
-        if(!$recipes) $this->goHome();
-
 
         $recipesProvider = new ActiveDataProvider([
                 'query' => $recipes,
-                'pagination'=>['pageSize'=>12]
+                'pagination'=>['pageSize'=> \Yii::$app->settings->get('general', 'pageSize', 12)]
             ]
         );
 
         $description = !empty($category->description) ?
-            $category->description : \Yii::$app->settings->get('seo', 'categoryPage-description');
+            $category->description :
+            $category->name . \Yii::$app->settings->get('seo', 'categoryPage-description', ' пошаговые рецепты с фото');
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $description,
@@ -123,6 +127,7 @@ class SearchController extends \yii\web\Controller
             'breadcrumbs' => $breadcrumbs,
             'children' => $children,
             'category' => $category,
+            'showSeoTextCondition' => true
         ]);
     }
 

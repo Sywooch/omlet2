@@ -4,6 +4,7 @@
  */
 use \yii\helpers\Url;
 
+$this->title = $cook->username . \Yii::$app->settings->get('seo', 'profileTitle');
 ?>
 <br />
 <div class="row">

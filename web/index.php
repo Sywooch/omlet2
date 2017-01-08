@@ -25,6 +25,12 @@ if (strpos(HOST, 'www.') === 0) {
     header("Location: " . str_replace('www.', '', FULL_HOST));
 }
 
+// robots.txt
+if ($_SERVER['REQUEST_URI'] == '/robots.txt') {
+    echo file_get_contents('robots.txt');
+    die;
+}
+
 
 
 require(__DIR__ . '/../vendor/autoload.php');

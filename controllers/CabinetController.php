@@ -30,7 +30,7 @@ class CabinetController extends \yii\web\Controller
 
     public function actionProfile($email)
     {
-        $cook = User::find()->where(['email' => $email])->one();
+        $cook = User::find()->where('email=:email', ['email' => $email])->one();
         if (empty($cook)) return $this->show404();
 
         $recipesProvider = new ActiveDataProvider([

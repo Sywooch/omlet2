@@ -271,4 +271,5 @@ a.desc:after {
 .seo-text{
     font-size: 22px;
     font-weight: 500;
+    clear: both;
 }

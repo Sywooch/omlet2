@@ -52,6 +52,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'sitemap.xml' => 'site/sitemap',
                 'search' => 'search/search',
                 'recipes' => 'search/index',
                 'recipes/<alias>' => 'search/category',

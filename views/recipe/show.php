@@ -7,6 +7,7 @@ use \yii\helpers\Url;
  *
  *
  */
+$this->title = $recipe->name . \Yii::$app->settings->get('seo', 'recipeTitle');
 
 $homeLink = [
     'label' => 'Головна',

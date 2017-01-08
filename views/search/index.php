@@ -2,8 +2,12 @@
 
 /* @var $this yii\web\View */
 use \yii\helpers\Url;
+use \yii\helpers\HtmlPurifier;
 
-$this->title = !empty($category->h1) ? $category->h1 : \Yii::$app->settings->get('seo', 'categoryPage-title');
+$this->title = !empty($category->title) ? $category->title :
+    (!empty($category->name) ?
+        $category->name . \Yii::$app->settings->get('seo', 'categoryPage-title') :
+        \Yii::$app->settings->get('seo', 'mainCategoryPage-title'));
 
 $homeLink = [
     'label' => 'Головна',
@@ -54,7 +58,13 @@ if (!empty($children)) { ?>
         </div>
     </div>
 <?php } ?>
-<h1><?= 1 ?></h1>
+<h1>
+    <?= !empty($category->h1) ?
+        $category->h1 :
+        (!empty($category->name) ?
+        $category->name . \Yii::$app->settings->get('seo', 'categoryPage-h1', '') :
+            \Yii::$app->settings->get('seo', 'mainCategoryPage-h1', '')) ?>
+</h1>
 <div class="recipes">
     <?=\yii\widgets\ListView::widget([
         'dataProvider' => $recipesProvider,
@@ -62,3 +72,10 @@ if (!empty($children)) { ?>
         'summary' => '{count} з {totalCount} рецептів'
     ]); ?>
 </div>
+<?php
+
+if ($showSeoTextCondition) {
+    $text = !empty($category) ? $category->seo_text : \Yii::$app->settings->get('seo', 'mainCategoryPage-seo');
+    if (!empty($text))
+        echo "<p class='seo-text'>" . HTMLPurifier::process($text) . "</p>";
+}
