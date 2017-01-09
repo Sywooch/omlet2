@@ -74,6 +74,8 @@ class AjaxController extends \yii\web\Controller
         $response = (object)array('error' => false);
         if ($recipe->save()) {
             foreach ($recipeInfo->ing as $ing){
+                if (is_null($ing)) continue;
+
                 if (empty($ing->name)) {
                     if($ing->id == 'new') continue;
                     Ingridient::findOne($ing->id)->delete();
@@ -95,6 +97,7 @@ class AjaxController extends \yii\web\Controller
             }
 
             foreach ($recipeInfo->steps as $instruction){
+                if (is_null($instruction)) continue;
 
                 if ($instruction->id == 'new') {
                     if (empty($instruction->name))
