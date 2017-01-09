@@ -31,7 +31,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         <div class="col-md-5 col-xs-12">
             <label for="recipeName">Назва страви:</label>
             <input type="hidden" name="recipeId" value="<?=$recipe['id']?>">
-            <input type="text" class="form-control recipe-info" id="recipeName" name="Recipe[name]" value="<?= HTMLPurifier::process($recipe['name']) ?>">
+            <input type="text" class="form-control recipe-info" id="recipeName" name="Recipe[name]" value="<?= htmlspecialchars(HTMLPurifier::process($recipe['name'])) ?>">
         </div>
         <div class="col-md-3 col-xs-12">
             <label for="recipeSection">Категорія рецептів:</label>
@@ -51,7 +51,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         <div class="col-md-2 col-xs-12">
             <label for="recipeCookTime">Час приготування:</label>
             <div class="input-group">
-                <input type="number" value="<?= HTMLPurifier::process($recipe->cook_time) ?>" class="form-control recipe-info" id="recipeCookTime" required name="Recipe[cook_time]">
+                <input type="number" value="<?= htmlspecialchars(HTMLPurifier::process($recipe->cook_time)) ?>" class="form-control recipe-info" id="recipeCookTime" required name="Recipe[cook_time]">
                 <div class="input-group-addon">хв</div>
             </div>
         </div>
@@ -97,7 +97,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="description">Декілька слів про страву:</label>
-            <textarea rows="19" class="form-control recipe-info" id="description" name="Recipe[description]"><?=(!is_null($recipe['description']))?HTMLPurifier::process($recipe['description']):''?></textarea>
+            <textarea rows="19" class="form-control recipe-info" id="description" name="Recipe[description]"><?=(!is_null($recipe['description']))?htmlspecialchars(HTMLPurifier::process($recipe['description'])):''?></textarea>
             </div>
         </div>
         <div class="col-md-3 col-xs-12 ingridients-group">
@@ -115,7 +115,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                 foreach ($ingridients as $ing) {?>
                     <div class="row">
                         <div class="col-xs-10">
-                            <input type="text" data-id="<?=$ing['id']?>" class="form-control recipe-info" value="<?= HTMLPurifier::process($ing['name']) ?>">
+                            <input type="text" data-id="<?=$ing['id']?>" class="form-control recipe-info" value="<?= htmlspecialchars(HTMLPurifier::process($ing['name'])) ?>">
                         </div>
                         <div class="col-xs-2">
                             <span onclick="removeIng($(this));" class="glyphicon glyphicon-remove ing-btn-remove" aria-hidden="true"></span>
@@ -178,7 +178,7 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
                 <div class="col-md-8 col-xs-12">
                     <span onclick="removeStep($(this));" class="glyphicon glyphicon-remove step-btn-remove" aria-hidden="true"></span>
                     <textarea rows="11" data-id="<?=$instruction['id']?>" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?">
-                        <?= HTMLPurifier::process($instruction['instruction']) ?>
+                        <?= htmlspecialchars(HTMLPurifier::process($instruction['instruction'])) ?>
                     </textarea>
                 </div>
                 <div class="col-md-3 col-xs-12">

@@ -12,8 +12,8 @@ $this->title = $cook->username . \Yii::$app->settings->get('seo', 'profileTitle'
         <?php
         echo
         file_exists(\Yii::getAlias('@app').DS.'media'.DS.'avatars'.DS.$cook->id.'.jpg')?
-            '<img src="'. Url::to(['image/avatar', 'id' => $cook->id]).'"" class="img-rounded">':
-            ''
+            '<img src="'. Url::to(['image/avatar', 'id' => $cook->id]).'" class="img-rounded">':
+            '<img src="/web/img/default_avatar.jpeg" class="img-rounded">'
         ?>
     </div>
     <div class="col-xs-12 col-md-4">

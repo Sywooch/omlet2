@@ -34,7 +34,11 @@ class CabinetController extends \yii\web\Controller
         if (empty($cook)) return $this->show404();
 
         $recipesProvider = new ActiveDataProvider([
-                'query' => $cook->getRecipes(),
+                'query' => Recipe::find()->where([
+                    'author' => $cook->id
+                ])->andWhere([
+                    'status' => Recipe::getActiveStatuses()
+                ]),
                 'pagination'=>['pageSize'=>12]
             ]
         );
