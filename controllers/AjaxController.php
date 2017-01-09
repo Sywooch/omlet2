@@ -58,10 +58,10 @@ class AjaxController extends \yii\web\Controller
     {
         $recipeInfo = isset($_POST['recipeInfo']) ? json_decode($_POST['recipeInfo']) : false;
 
-        if (!$recipeInfo) exit('fail');
+        if (!$recipeInfo) exit('fail-input');
         
         $recipe = Recipe::findOne($recipeInfo->id);
-        if (!$recipe) exit('fail');
+        if (!$recipe) exit('fail-recipe-not-found');
 
         $recipe->name = !empty($recipeInfo->name) ? $recipeInfo->name : $recipe->name;
         $recipe->section = $recipeInfo->sectionId;
