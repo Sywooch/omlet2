@@ -13,8 +13,8 @@ if (IS_DEV) {
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=omletkie_db_new',
-    'username' => '',
-    'password' => '',
+    'username' => 'omletkie_user',
+    'password' => '8~#4Ircre=h,',
     'charset' => 'utf8',
 ];
 
