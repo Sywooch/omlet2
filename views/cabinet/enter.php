@@ -53,13 +53,13 @@ $this->title = 'Omlet Вхід';
                             <div class="form-group">
                                 <label for="inputPassword2" class="col-sm-3 control-label">Пароль</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="inputPassword2" placeholder="Пароль" maxlength="100" name="User[password]">
+                                    <input type="password" class="form-control" id="inputPassword2" placeholder="Пароль" minlength="4" maxlength="100" name="User[password]">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword1" class="col-sm-3 control-label">Ще раз</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Пароль" maxlength="100" name="User[password2]">
+                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Пароль" minlength="4"  maxlength="100" name="User[password2]">
                                 </div>
                             </div>
                             <div class="form-group">

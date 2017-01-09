@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Recipe;
 use app\models\RecipeSection;
+use php_rutils\Translit;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -75,8 +76,18 @@ class SiteController extends Controller
 
     public function actionSitemap()
     {
-        //todo-in finish this
-        echo 'tut budet sitemap';
+        $t = new Translit();
+        $cats = RecipeSection::find()->all();
+        foreach ($cats as $cat) {
+            $cat->alias = $t->slugify($cat->name);
+            $cat->save();
+        }
+        return $this->render('sitemap', [
+            'categories' => RecipeSection::find()->where([
+                'id' => Recipe::find()->select('section')->distinct()->column()
+            ])->asArray()->all(),
+            'recipes' => Recipe::find()->asArray()->all(),
+        ]);
     }
 
 }
