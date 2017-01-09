@@ -15,7 +15,7 @@ class UploadAvatar extends Model
     public function rules()
     {
         return [
-            [['photo'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['photo'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
