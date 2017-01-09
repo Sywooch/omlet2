@@ -12,7 +12,7 @@ if (IS_DEV) {
 // production db connection
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhostlocalhost;dbname=omletkie_db_new',
+    'dsn' => 'mysql:host=localhost;dbname=omletkie_db_new',
     'username' => '',
     'password' => '',
     'charset' => 'utf8',
