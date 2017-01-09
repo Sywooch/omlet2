@@ -1,6 +1,8 @@
 <?php
 use \yii\helpers\Html;
 use \yii\helpers\Url;
+use \yii\helpers\HtmlPurifier;
+
 /**
  * @var $recipe app\models\Recipe
  *
@@ -23,11 +25,11 @@ echo \yii\widgets\Breadcrumbs::widget([
 ?>
     <div id="recipe" itemscope itemtype="//schema.org/Recipe">
         <span itemprop="recipeCategory" style="display: none"><?= $category ?></span>
-        <div class="row"><h1 itemprop="name" style="text-align: center"><?= $recipe->name ?></h1></div>
+        <div class="row"><h1 itemprop="name" style="text-align: center"><?= HTMLPurifier::process($recipe->name) ?></h1></div>
 
         <div class="row">
             <div class="col-xs-12 col-md-6 recipe-ava-wrapper" id="main-image">
-                <img  itemprop="image" src="<?= \yii\helpers\Url::to(['image/recipe', 'id' => $recipe->id, 'num' => 0]) ?>" title="<?= $recipe->name ?>" alt="<?= $recipe->name ?>" class="img-rounded"/>
+                <img  itemprop="image" src="<?= \yii\helpers\Url::to(['image/recipe', 'id' => $recipe->id, 'num' => 0]) ?>" title="<?= HTMLPurifier::process($recipe->name) ?>" alt="<?= $recipe->name ?>" class="img-rounded"/>
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="container">
@@ -53,7 +55,7 @@ echo \yii\widgets\Breadcrumbs::widget([
                                 <tbody>
                                 <?php
                                 foreach ($recipe->getIngridients()->all() as $ing) {
-                                    echo '<tr><td itemprop="ingredients">'.$ing->name.'</td></tr>';
+                                    echo '<tr><td itemprop="ingredients">'.HTMLPurifier::process($ing->name).'</td></tr>';
                                 }
                                 ?>
                                 </tbody>
@@ -62,11 +64,11 @@ echo \yii\widgets\Breadcrumbs::widget([
                         <div class="col-xs-12 col-md-3">
                             <p class="author-desc">
                                 <a itemprop="author"
-                                   href="<?= Url::to(['cabinet/profile', 'email' => $recipe->getAuthor()->one()->email]) ?>">
+                                   href="<?= Url::to(['cabinet/profile', 'email' => HTMLPurifier::process($recipe->getAuthor()->one()->email)]) ?>">
                                     Від автора:
                                 </a>
                             </p>
-                            <p itemprop="description"><?= $recipe->description ?></p>
+                            <p itemprop="description"><?= HTMLPurifier::process($recipe->description) ?></p>
                         </div>
                     </div>
                 </div>
@@ -75,8 +77,8 @@ echo \yii\widgets\Breadcrumbs::widget([
         </div>
         <div class="row">
             <p style="font-size: 30px;text-align: center; font-weight: bold">
-                <span itemprop="totalTime" style="display: none">PT<?= $recipe->cook_time?>M</span>
-                Як готувати? (<?= $recipe->cook_time?> хв)
+                <span itemprop="totalTime" style="display: none">PT<?= HTMLPurifier::process($recipe->cook_time) ?>M</span>
+                Як готувати? (<?= HTMLPurifier::process($recipe->cook_time) ?> хв)
             </p>
         </div>
 
@@ -94,8 +96,8 @@ echo \yii\widgets\Breadcrumbs::widget([
                         if (file_exists($imagePath)) {
                             $imageUrl = Url::to(['image/preview', 'id' => $recipe->id, 'num' => $step->step]);
                             echo Html::img($imageUrl, [
-                                'title' => 'приготування '.$recipe->name,
-                                'alt' => 'приготування '.$recipe->name,
+                                'title' => 'приготування '.HTMLPurifier::process($recipe->name),
+                                'alt' => 'приготування '.HTMLPurifier::process($recipe->name),
                                 'class' => 'img-rounded img-responsive',
                             ]);
                         }
@@ -105,7 +107,7 @@ echo \yii\widgets\Breadcrumbs::widget([
                             <span><?= $step->step ?></span>
                         </div>
                         <div class="step-ins">
-                            <p  itemprop="recipeInstructions"><?=$step->instruction?></p>
+                            <p  itemprop="recipeInstructions"><?= HTMLPurifier::process($step->instruction) ?></p>
                         </div>
                     </div>
                 </div>

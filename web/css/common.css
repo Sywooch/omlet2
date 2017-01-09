@@ -273,3 +273,7 @@ a.desc:after {
     font-weight: 500;
     clear: both;
 }
+.mini-description{
+    max-height: 120px;
+    overflow: hidden;
+}
