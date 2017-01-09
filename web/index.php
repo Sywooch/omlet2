@@ -7,7 +7,7 @@ if (in_array($_SERVER['HTTP_HOST'], ['omlet2', 'omlet.dev'])) {
     define('MAINTENANCE_MODE', false);
 } else {
     define('IS_DEV', false);
-    define('MAINTENANCE_MODE', true);
+    define('MAINTENANCE_MODE', false);
 }
 
 define('DS', DIRECTORY_SEPARATOR);
