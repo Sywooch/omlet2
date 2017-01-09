@@ -26,7 +26,7 @@ if (strpos(HOST, 'www.') === 0) {
 }
 
 // robots.txt
-if (strpos($_SERVER['REQUEST_URI'], '/robots.txt')) {
+if (strpos($_SERVER['REQUEST_URI'], '/robots.txt') === 0) {
     echo file_get_contents('robots.txt');
     die;
 }
