@@ -61,6 +61,8 @@ class ImageController extends \yii\web\Controller
 
     public function actionEdit($id, $num)
     {
+        User::checkAuthorByRecId($id);
+
         $recipe = \app\models\Recipe::findOne((int)$id);
         if (!$recipe) return $this->show404();
         $stepPhotoModel = new \app\models\UploadStepPhoto();
