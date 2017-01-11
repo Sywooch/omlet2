@@ -57,6 +57,12 @@ AppAsset::register($this);
                     <?php
                     if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role === \app\models\User::ADMIN_ROLE) { ?>
                         <li>
+                            <a href="<?=Url::to(['admin/errors'])?>">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                Errors
+                            </a>
+                        </li>
+                        <li>
                             <a <?= Recipe::find()->where(['status' => [
                                 Recipe::STATUS_MODIFIED,
                                 Recipe::STATUS_PUBLISHED
@@ -106,7 +112,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; omlet.kiev.ua 2016</p>
+        <p class="pull-left">&copy; <?= HOST ?> 2016-2017</p>
+        <a style="float: right" href="mailto:ivan.nezhura@gmail.com">Contact me!</a>
     </div>
 </footer>
 <!-- AUTH DIALOG -->

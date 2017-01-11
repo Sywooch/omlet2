@@ -51,6 +51,20 @@ class AdminController extends Controller
         ]);
     }
 
+    public function actionErrors()
+    {
+        $logPath = \Yii::$app->getBasePath() . DS . 'runtime' . DS . 'logs' . DS. 'app.log';
+
+        if (\Yii::$app->request->post('delete')) {
+            file_put_contents($logPath, '');
+        }
+        $errorLog = file_get_contents($logPath);
+
+        return $this->render('errors', [
+            'errorLog' => $errorLog,
+        ]);
+    }
+
     /**
      * Displays a single Setting model.
      * @param string $category

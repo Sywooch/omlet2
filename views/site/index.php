@@ -32,7 +32,7 @@ $this->title = \Yii::$app->settings->get('seo', 'mainPage-title', 'Omlet - По�
                    <?php } ?>
                </div>
            </div>
-           <div class="col-md-6 col-xs-12">
+           <div class="col-md-6 hidden-xs">
                <img src="<?= $imageUrl ?>" title="лучшие рецепты на <?= FULL_HOST ?>" alt="лучшие рецепты на <?= FULL_HOST ?>" />
            </div>
        </div>
