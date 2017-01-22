@@ -17,7 +17,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left', '40', '-30' )->output();
 
         exit();
     }
@@ -29,7 +29,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left', '40', '-30' )->output();
 
         exit();
     }
@@ -41,7 +41,7 @@ class ImageController extends \yii\web\Controller
 
         $image = new SimpleImage($filePath);
         $fontSize = ($image->get_original_info()['width']<300)?"30":'60';
-        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left' )->output();
+        $image->text(HOST, \Yii::getAlias('@app') . DS . 'assets' . DS . 'fonts' . DS . "Favorit.ttf", $fontSize, '#e7e516', 'bottom left', '40', '-30' )->output();
 
 
         exit();
