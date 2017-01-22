@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Instruction;
 use app\models\Likes;
 use app\models\SavedRecipe;
 use yii\data\ActiveDataProvider;
@@ -93,6 +94,16 @@ class RecipeController extends \yii\web\Controller
         ) {
             if (\Yii::$app->user->identity->role !== \app\models\User::ADMIN_ROLE)
                 return $this->show404();
+        }
+
+        $instructionCount = $recipe->getInstructions()->count();
+        for ($i = 1; $i <=9; $i++) {
+            if ($i <= $instructionCount) continue;
+
+            $instruction = new Instruction();
+            $instruction->recipe_id = $recipe->id;
+            $instruction->step = $i;
+            $instruction->save();
         }
 
         $instructions = $recipe->getInstructions()->asArray()->all();

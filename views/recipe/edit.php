@@ -127,59 +127,18 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
     </div>
     <h2>Як готуємо?</h2>
     <?php
-    if (empty($instructions)) { ?>
-        <div class="row step" id="steps">
-            <div class="col-md-1 hidden-xs">
-                <img class="step-img-holder" src="/web/img/step.png">
-            </div>
-            <div class="col-md-8 col-xs-7">
-                <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
-            </div>
-            <div class="col-md-3 col-xs-5">
-                <?php
-                echo \kartik\file\FileInput::widget([
-                    'model' => $stepPhotoModel,
-                    'attribute' => 'photo',
-                    'options' => [
-                        'accept' => 'image/*',
-                    ],
-                    'pluginOptions' => [
-                        'uploadUrl' => Url::to(['upload/photo']),
-                        'uploadExtraData' => [
-                            'recipeId' => $recipe['id'],
-                            'photoNum' => '1',
-                            'mainPhotoFlag' => 'false',
-                        ],
-                        'showBrowse' => false,
-                        'dropZoneEnabled' => true,
-                        'dropZoneTitle' => 'Затягніть сюди фото',
-                        'dropZoneClickTitle' => ', або клікніть щоб вибрати...',
-                        'showPreview' => true,
-                        'browseOnZoneClick' => true,
-                        'allowedFileTypes' => ['image' ],
-                        'maxFileSize' => 6000,
-                        'maxFileCount' => 1,
-                        'resizeImageQuality' => 0.75,
-                    ]
-                ]);
-                ?>
-            </div>
-        </div>
-    <?php } else {
+    if (!empty($instructions)) {
         foreach ($instructions as $instruction) { ?>
             <script>
                 window.ImageEditUrls[<?=$instruction['id']?>] =
-                '<?=Url::to(['image/edit', 'id' => $recipe['id'], 'num' => $instruction['step']])?>';
+                    '<?=Url::to(['image/edit', 'id' => $recipe['id'], 'num' => $instruction['step']])?>';
             </script>
             <div class="row step" id="steps">
                 <div class="col-md-1 hidden-xs">
                     <img class="step-img-holder" src="/web/img/step.png">
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <span onclick="removeStep($(this));" class="glyphicon glyphicon-remove step-btn-remove" aria-hidden="true"></span>
-                    <textarea rows="11" data-id="<?=$instruction['id']?>" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?">
-                        <?= htmlspecialchars(HTMLPurifier::process($instruction['instruction'])) ?>
-                    </textarea>
+                    <textarea rows="11" data-id="<?=$instruction['id']?>" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"><?= htmlspecialchars(HTMLPurifier::process($instruction['instruction'])) ?></textarea>
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <button class="btn btn-default photo-edit control-btn"
@@ -193,61 +152,8 @@ $this->registerJsFile(Yii::getAlias('@web/js/recipe-edit.js'));
             </div>
             <div class="visible-xs-block hor-line"></div>
         <?php }
-        if (isset($_POST['stepAdd'])) { ?>
-            <div class="row step mob-margin" id="steps">
-                <div class="col-md-1 hidden-xs">
-                    <img class="step-img-holder" src="/web/img/step.png">
-                </div>
-                <div class="col-md-8 col-xs-12">
-                    <textarea rows="11" class="step-description form-control recipe-info" placeholder="...як ріжемо/паримо/варимо?"></textarea>
-                </div>
-                <div class="col-md-3 col-xs-12 mob-margin">
-                    <?php
-                    echo \kartik\file\FileInput::widget([
-                        'model' => $stepPhotoModel,
-                        'attribute' => 'photo',
-                        'options' => [
-                            'accept' => 'image/*',
-                        ],
-                        'pluginOptions' => [
-                            'uploadUrl' => Url::to(['upload/photo']),
-                            'uploadExtraData' => [
-                                'recipeId' => $recipe->id,
-                                'photoNum' => count($instructions)+1,
-                                'mainPhotoFlag' => 'false',
-                            ],
-                            'showBrowse' => false,
-                            'dropZoneEnabled' => true,
-                            'dropZoneTitle' => 'Затягніть сюди фото',
-                            'dropZoneClickTitle' => ', або клікніть щоб вибрати...',
-                            'showPreview' => true,
-                            'browseOnZoneClick' => true,
-                            'allowedFileTypes' => ['image' ],
-                            'maxFileSize' => 6000,
-                            'maxFileCount' => 1,
-                            'resizeImageQuality' => 0.75,
-                        ]
-                    ]);
-                    ?>
-                </div>
-            </div>
-            <div class="visible-xs-block hor-line"></div>
-            <script>
-                $(window).scrollTop($(document).height());
-            </script>
-        <?php }
-    }
-    ?>
+    } ?>
 
-    <div class="row">
-        <div class="col-xs-2">
-            <form method="post">
-                <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
-                <input type="hidden" name="stepAdd" value="1">
-                <input type="submit" value="Ще інструкцій" class="btn btn-default control-btn   ">
-            </form>
-        </div>
-    </div>
     <div id="showSave" style="display:none">
         <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
     </div>

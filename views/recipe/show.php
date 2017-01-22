@@ -83,7 +83,7 @@ echo \yii\widgets\Breadcrumbs::widget([
         </div>
 
             <?php
-            $steps = $recipe->getInstructions()->all();
+            $steps = $recipe->getInstructions()->where(['>', 'LENGTH(instruction)', '5'])->all();
             foreach ($steps as $step) {
                 if ($step->step == 1 || ($step->step - 1) % 3 === 0)
                     echo '<div class="row">';

@@ -16,6 +16,13 @@ use Yii;
  */
 class Instruction extends \yii\db\ActiveRecord
 {
+
+    public function beforeSave($insert)
+    {
+        return parent::beforeSave($insert);
+        $this->instruction = trim($this->instruction);
+    }
+
     /**
      * @inheritdoc
      */
@@ -30,7 +37,7 @@ class Instruction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['recipe_id', 'step', 'instruction'], 'required'],
+            [['recipe_id', 'step'], 'required'],
             [['recipe_id', 'step'], 'integer'],
             [['instruction'], 'string', 'max' => 1000],
             [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
