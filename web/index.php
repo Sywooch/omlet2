@@ -31,6 +31,12 @@ if (strpos($_SERVER['REQUEST_URI'], '/robots.txt') === 0) {
     die;
 }
 
+// google verification
+if (strpos($_SERVER['REQUEST_URI'], '/googlee49a00f983101b14.html') === 0) {
+    echo file_get_contents('googlee49a00f983101b14.html');
+    die;
+}
+
 
 
 require(__DIR__ . '/../vendor/autoload.php');
